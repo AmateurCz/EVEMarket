@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 
-
-namespace EVEMarket
+namespace EVEMarket.Shared
 {
-    public class StaticData : IDisposable
+    public abstract class StaticData : IDisposable
     {
         private Dictionary<string, ZipArchive> m_archives;
 
@@ -26,6 +25,8 @@ namespace EVEMarket
         {
         }
 
+        protected abstract Stream OpenFile(string path);
+
         #region Icons
 
         public ZipArchive IconArchive
@@ -39,12 +40,7 @@ namespace EVEMarket
                 {
                     if (!Archives.TryGetValue(nameof(IconArchive), out archive))
                     {
-
-#if WPF
-                        archive = new ZipArchive(File.OpenRead(WPF.Properties.Settings.Default.EVEIcons), ZipArchiveMode.Read);
-#else
-                        throw new NotImplementedException();
-#endif
+                        archive = new ZipArchive(OpenFile(Properties), ZipArchiveMode.Read);
                         Archives.Add(nameof(IconArchive), archive);
                     }
                 }
@@ -67,9 +63,9 @@ namespace EVEMarket
             throw new NotImplementedException();
         }
 
-#endregion Icons
+        #endregion Icons
 
-#region IDisposable Support
+        #region IDisposable Support
 
         private bool m_disposed = false; // To detect redundant calls
 
@@ -110,6 +106,6 @@ namespace EVEMarket
             // GC.SuppressFinalize(this);
         }
 
-#endregion IDisposable Support
+        #endregion IDisposable Support
     }
 }
