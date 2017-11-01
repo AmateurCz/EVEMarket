@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EVEMarket.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="1080" Width="1920">
-    <Grid DataContext="{StaticResource Locator}">
+    <Grid DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
         
     </Grid>
 </Window>

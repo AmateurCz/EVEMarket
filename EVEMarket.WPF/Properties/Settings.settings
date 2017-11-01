@@ -3,7 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="EVEIcons" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">D:\Nová složka\Lifeblood_1.0_Icons.zip</Value>
+      <Value Profile="(Default)">D:\EVEData\Lifeblood_1.0_Icons.zip</Value>
+    </Setting>
+    <Setting Name="EVEDatabase" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">D:\EVEData\sde-20171024-TRANQUILITY.zip</Value>
     </Setting>
   </Settings>
 </SettingsFile>

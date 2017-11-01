@@ -25,10 +25,19 @@ namespace EVEMarket.WPF.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Nová složka\\Lifeblood_1.0_Icons.zip")]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\EVEData\\Lifeblood_1.0_Icons.zip")]
         public string EVEIcons {
             get {
                 return ((string)(this["EVEIcons"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\EVEData\\sde-20171024-TRANQUILITY.zip")]
+        public string EVEDatabase {
+            get {
+                return ((string)(this["EVEDatabase"]));
             }
         }
     }

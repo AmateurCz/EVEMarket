@@ -6,9 +6,14 @@
     <SharedGUID>231728aa-b942-4eb0-8a5e-9099f052d809</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>EVEMarket.Shared</Import_RootNamespace>
+    <Import_RootNamespace>EVEMarket</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)StaticData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Category.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Graphic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Group.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Icon.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Text.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Type.cs" />
   </ItemGroup>
 </Project>
