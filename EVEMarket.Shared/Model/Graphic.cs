@@ -12,18 +12,18 @@ namespace EVEMarket.Model
         public int Id { get; set; }
 
         [JsonProperty("Description")]
-        public string description;
+        public string Description { get; set; }
 
         [JsonProperty("iconFolder")]
-        public string IconFolder;
+        public string IconFolder { get; set; }
 
         [JsonProperty("sofFactionName")]
-        public string SofFactionName;
+        public string SofFactionName { get; set; }
 
         [JsonProperty("sofHullName")]
-        public string SofHullName;
+        public string SofHullName { get; set; }
 
         [JsonProperty("sofRaceName")]
-        public string SofRaceName;
+        public string SofRaceName { get; set; }
     }
 }

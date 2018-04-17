@@ -12,9 +12,9 @@ namespace EVEMarket.Model
         public int Id { get; set; }
 
         [JsonProperty("description")]
-        public string Description;
+        public string Description { get; set; }
 
         [JsonProperty("iconFile")]
-        public string IconFile;
+        public string IconFile { get; set; }
     }
 }
