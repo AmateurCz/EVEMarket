@@ -16,6 +16,8 @@ namespace EVEMarket.Model
         [YamlMember(Alias = "nameID")]
         public int NameId { get; set; }
 
+        public string Name { get; set; }
+
         [YamlMember(Alias = "descriptionID")]
         public int DescriptionId { get; set; }
 
@@ -40,5 +42,6 @@ namespace EVEMarket.Model
         [JsonIgnore]
         [InverseProperty("regionID")]
         public virtual ICollection<Constellation> Constellations { get; set; } = new List<Constellation>();
+
     }
 }

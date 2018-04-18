@@ -22,7 +22,11 @@ namespace EVEMarket.WPF.Data
                     region = StaticDataSerializer.Deserialize<Region>(stream);
                 }
 
-                var regionPrefix = System.IO.Path.GetDirectoryName(regionFile.FullName).Replace('\\', '/');
+                var regionPrefix = System.IO.Path.GetDirectoryName(regionFile.FullName)
+                    .Replace('\\', '/');
+                var regionName = System.IO.Path.GetFileName(regionPrefix);
+                region.Name = regionName;
+
 
                 foreach (var constellationFile in universeArchives.Where(
                     x => x.FullName.StartsWith(regionPrefix, StringComparison.InvariantCulture) &&
@@ -36,11 +40,14 @@ namespace EVEMarket.WPF.Data
                         con = StaticDataSerializer.Deserialize<Constellation>(stream);
                     }
 
+                    
                     con.RegionId = region.Id;
                     con.Region = region;
                     region.Constellations.Add(con);
 
                     var constellationPrefix = System.IO.Path.GetDirectoryName(constellationFile.FullName).Replace('\\', '/');
+                    var constellationName = System.IO.Path.GetFileName(constellationPrefix);
+                    con.Name = constellationName;
 
                     //foreach (var systemFile in universeArchives.Where(
                     //    x => x.FullName.StartsWith(constellationPrefix, StringComparison.InvariantCulture) &&

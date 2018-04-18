@@ -1,11 +1,9 @@
-using EVEMarket.Model;
-using EVEMarket.WPF.Data;
-using GalaSoft.MvvmLight;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using EVEMarket.WPF.Data;
+using GalaSoft.MvvmLight;
 
 namespace EVEMarket.WPF.ViewModel
 {
@@ -23,7 +21,14 @@ namespace EVEMarket.WPF.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        private RegionViewModel _selectedRegion;
+
         public ObservableCollection<RegionViewModel> Regions { get; }
+        public RegionViewModel SelectedRegion
+        {
+            get => _selectedRegion;
+            set => Set(ref _selectedRegion, value);
+        }
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -37,19 +42,20 @@ namespace EVEMarket.WPF.ViewModel
             else
             {
                 // Code runs "for real"
-                using (var stream = File.Open(@"F:\EVESDE\sde-20180323-TRANQUILITY.zip", FileMode.Open))
+                using (var stream = File.Open(@"C:\Users\kubatdav\Downloads\sde-20180323-TRANQUILITY.zip", FileMode.Open))
                 {
                     var zipArchive = new ZipArchive(stream);
-                    Dictionary<int, string> names;
-                    using (var namesYaml = zipArchive.Entries.FirstOrDefault(x => x.Name == "invNames.yaml").Open())
-                       names = StaticDataSerializer.Deserialize<List<Name>>(namesYaml).ToDictionary(x=>x.Id, x=>x.ItemName);
-
 
                     var regions = RegionBuilder.BuildRegionsFromZipFile(zipArchive)
-                    .Select(x => new RegionViewModel(x) { Name = names[x.NameId] } )
-                    .ToList();                    
+                        .OrderBy(x => x.Id)
+                        .Select(x => new RegionViewModel(x))
+                        .ToList();
 
+                    SelectedRegion = regions.First();
                     Regions = new ObservableCollection<RegionViewModel>(regions);
+
+
+
                 }
             }
         }

@@ -24,6 +24,7 @@ namespace EVEMarket.Model
 
         [YamlMember(Alias = "nameID")]
         public int NameId { get; set; }
+        public string Name { get; set; }
 
         [YamlMember(Alias = "descriptionID")]
         public int DescriptionId { get; set; }
@@ -36,6 +37,9 @@ namespace EVEMarket.Model
 
         [YamlMember(Alias = "wormholeClassID")]
         public int? WormholeClassId { get; set; }
+
+        [YamlMember(Alias = "factionID")]
+        public int? FactionId { get; set; }
 
         [YamlMember(Alias = "center")]
         public Vector3 Center { get; set; }

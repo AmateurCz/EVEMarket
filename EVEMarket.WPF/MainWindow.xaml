@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EVEMarket.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920">
+        Title="MainWindow" Height="600" Width="800">
     <Grid DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -14,7 +14,11 @@
         </Grid.RowDefinitions>
         <DockPanel LastChildFill="False">
             <TextBlock Text="Region:" VerticalAlignment="Center" Margin="10,0,0,0"/>
-            <ComboBox ItemsSource="{Binding Regions}" DisplayMemberPath="Name" Margin="5" MinWidth="50"/>
+            <ComboBox ItemsSource="{Binding Regions}" SelectedItem="{Binding SelectedRegion}" DisplayMemberPath="Name" Margin="5" MinWidth="50"/>
+
+            <TextBlock Text="Constellation:" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            <ComboBox DataContext="{Binding SelectedRegion}" ItemsSource="{Binding Constellations}" SelectedItem="{Binding SelectedConstellation}" DisplayMemberPath="Name" Margin="5" MinWidth="50"/>
+
             <Button Content="Refresh" Margin="5" Padding="4" DockPanel.Dock="Right"/>
         </DockPanel>
 

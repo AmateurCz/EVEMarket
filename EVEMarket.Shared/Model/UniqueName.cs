@@ -4,7 +4,7 @@ using YamlDotNet.Serialization;
 
 namespace EVEMarket.Model
 {
-    public class Name
+    public class UniqueName
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -13,5 +13,8 @@ namespace EVEMarket.Model
 
         [YamlMember(Alias = "itemName")]
         public string ItemName { get; set; }
+
+        [YamlMember(Alias = "groupID")]
+        public string GroupId { get; set; }
     }
 }
