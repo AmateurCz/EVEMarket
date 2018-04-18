@@ -85,7 +85,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\EveDbContext.cs" />
+    <Compile Include="Data\VectorDeserializer.cs" />
+    <Compile Include="Data\RegionBuilder.cs" />
+    <Compile Include="Data\StaticDataSerializer.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\RegionViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

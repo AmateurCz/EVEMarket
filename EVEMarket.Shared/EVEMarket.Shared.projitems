@@ -10,10 +10,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Model\Category.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Constellation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Graphic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Group.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Icon.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\MarketGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Name.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Region.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Text.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Type.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Vector3.cs" />
   </ItemGroup>
 </Project>

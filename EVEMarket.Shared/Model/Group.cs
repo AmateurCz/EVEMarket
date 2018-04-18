@@ -22,7 +22,7 @@ namespace EVEMarket.Model
         public int CategoryID { get; set; }
 
         [JsonIgnore]
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         [JsonProperty("fittableNonSingleton")]
         public bool FittableNonSingleton { get; set; }

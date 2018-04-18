@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using EVEMarket.WPF.Data;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Windows;
 
 namespace EVEMarket.WPF
 {
@@ -10,10 +14,6 @@ namespace EVEMarket.WPF
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-        }
+        }        
     }
 }
