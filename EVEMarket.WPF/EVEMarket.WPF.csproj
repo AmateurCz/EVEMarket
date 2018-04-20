@@ -92,6 +92,7 @@
     <Compile Include="ViewModel\ConstellationViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\RegionViewModel.cs" />
+    <Compile Include="ViewModel\SolarSystemViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

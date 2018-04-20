@@ -1,6 +1,7 @@
 ﻿using EVEMarket.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
@@ -12,52 +13,91 @@ namespace EVEMarket.WPF.Data
     {
         public static IEnumerable<Region> BuildRegionsFromZipFile(ZipArchive archive)
         {
-            var universeArchives = archive.Entries.Where(x => x.FullName.StartsWith("sde/fsd/universe/")).ToList();
+            var fileNames = archive.Entries.Select(x => x.FullName.Replace('/', Path.DirectorySeparatorChar)).ToList();
+            Func<string, Stream> openFile = path =>
+            {
+                int index = fileNames.IndexOf(path);
+                return archive.Entries[index].Open();
+            };
 
-            foreach (var regionFile in universeArchives.Where(x => string.Equals(x.Name, "region.staticdata", StringComparison.InvariantCultureIgnoreCase)))
+            return BuildRegions(fileNames, openFile);
+        }
+
+        public static IEnumerable<Region> BuildRegions(IEnumerable<string> fileNames, Func<string, Stream> readFile)
+        {
+            var universeArchives = fileNames.Where(x => x.StartsWith(Path.Combine("sde", "fsd", "universe"))).ToList();
+
+            foreach (var regionFile in FindFiles("region.staticdata", universeArchives))
             {
                 Region region;
-                using (var stream = regionFile.Open())
+                using (var stream = readFile(regionFile))
                 {
                     region = StaticDataSerializer.Deserialize<Region>(stream);
                 }
 
-                var regionPrefix = System.IO.Path.GetDirectoryName(regionFile.FullName)
-                    .Replace('\\', '/');
-                var regionName = System.IO.Path.GetFileName(regionPrefix);
-                region.Name = regionName;
+                var regionPrefix = Path.GetDirectoryName(regionFile);
+                var regionName = Path.GetFileName(regionPrefix);
+                region.Name = FormatName(regionName);
 
 
-                foreach (var constellationFile in universeArchives.Where(
-                    x => x.FullName.StartsWith(regionPrefix, StringComparison.InvariantCulture) &&
-                         string.Equals(x.Name,
-                                       "constellation.staticdata",
-                                       StringComparison.InvariantCultureIgnoreCase)))
+                foreach (var constellationFile in FindFiles(regionPrefix, "constellation.staticdata", universeArchives))
                 {
                     Constellation con;
-                    using (var stream = regionFile.Open())
+                    using (var stream = readFile(constellationFile))
                     {
                         con = StaticDataSerializer.Deserialize<Constellation>(stream);
                     }
 
-                    
+
                     con.RegionId = region.Id;
                     con.Region = region;
                     region.Constellations.Add(con);
 
-                    var constellationPrefix = System.IO.Path.GetDirectoryName(constellationFile.FullName).Replace('\\', '/');
-                    var constellationName = System.IO.Path.GetFileName(constellationPrefix);
-                    con.Name = constellationName;
+                    var constellationPrefix = Path.GetDirectoryName(constellationFile);
+                    var constellationName = Path.GetFileName(constellationPrefix);
+                    con.Name = FormatName(constellationName);
 
-                    //foreach (var systemFile in universeArchives.Where(
-                    //    x => x.FullName.StartsWith(constellationPrefix, StringComparison.InvariantCulture) &&
-                    //         string.Equals(x.Name,
-                    //                       "system.staticdata",
-                    //                       StringComparison.InvariantCultureIgnoreCase)))
+                    foreach (var systemFile in FindFiles(constellationPrefix, "solarsystem.staticdata", universeArchives))
+                    {
+                        var systemPrefix = Path.GetDirectoryName(systemFile);
+                        var systemName = Path.GetFileName(systemPrefix);
+
+                        SolarSystem system = new SolarSystem();
+                        system.Constellation = con;
+                        system.ConstellationId = con.Id;
+                        system.Name = FormatName(systemName);
+                        con.Systems.Add(system);
+                    }
+
                 }
 
                 yield return region;
             }
+        }
+
+        private static string FormatName(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return string.Empty;
+
+            StringBuilder newText = new StringBuilder(text.Length + 5);
+            newText.Append(text[0]);
+            for (int i = 1; i < text.Length; i++)
+            {
+                if (char.IsUpper(text[i]))
+                    newText.Append(' ');
+                newText.Append(text[i]);
+            }
+            return newText.ToString();
+        }
+
+        private static IEnumerable<string> FindFiles(string fileName, IEnumerable<string> files)
+        {
+            return files.Where(x => x.EndsWith(fileName, StringComparison.InvariantCultureIgnoreCase));
+        }
+        private static IEnumerable<string> FindFiles(string prefix, string fileName, IEnumerable<string> files)
+        {
+            return files.Where(x => x.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase) && x.EndsWith(fileName, StringComparison.InvariantCultureIgnoreCase));
         }
     }
 }

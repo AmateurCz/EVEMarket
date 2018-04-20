@@ -11,7 +11,7 @@ namespace EVEMarket.Model
     public class Constellation
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [YamlMember(Alias = "constellationID")]
         public int Id { get; set; }
 
@@ -19,28 +19,20 @@ namespace EVEMarket.Model
         [ForeignKey("region")]
         public int RegionId { get; set; }
         
-        [JsonIgnore]
         public Region Region { get; set; }
 
         [YamlMember(Alias = "nameID")]
         public int NameId { get; set; }
-        public string Name { get; set; }
 
-        [YamlMember(Alias = "descriptionID")]
-        public int DescriptionId { get; set; }
+        public string Name { get; set; }
 
         [YamlMember(Alias = "radius")]
         public double? Radius { get; set; }
-
-        [YamlMember(Alias = "nebula")]
-        public int? Nebula { get; set; }
-
         [YamlMember(Alias = "wormholeClassID")]
         public int? WormholeClassId { get; set; }
 
         [YamlMember(Alias = "factionID")]
         public int? FactionId { get; set; }
-
         [YamlMember(Alias = "center")]
         public Vector3 Center { get; set; }
 
@@ -49,5 +41,7 @@ namespace EVEMarket.Model
 
         [YamlMember(Alias = "max")]
         public Vector3 Max { get; set; }
+
+        public virtual ICollection<SolarSystem> Systems { get; set; } = new List<SolarSystem>();
     }
 }

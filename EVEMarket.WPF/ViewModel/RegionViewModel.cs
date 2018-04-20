@@ -18,7 +18,7 @@ namespace EVEMarket.WPF.ViewModel
                 if (_constellations == null)
                 {
                     _constellations = new ObservableCollection<ConstellationViewModel>(
-                        _model.Constellations.OrderBy(x=>x.Id).Select(x => new ConstellationViewModel(x)).ToList());
+                        _model.Constellations.OrderBy(x=>x.Name).Select(x => new ConstellationViewModel(x)).ToList());
                     _selectedConstellation = _constellations.First();
                 }
 

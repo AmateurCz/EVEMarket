@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Compression;
@@ -54,8 +55,10 @@ namespace EVEMarket.WPF.ViewModel
                     SelectedRegion = regions.First();
                     Regions = new ObservableCollection<RegionViewModel>(regions);
 
-
-
+                    using (var mGroups = zipArchive.GetEntry("sde/bsd/invMarketGroups.yaml").Open())
+                    {
+                        var marketGroups = StaticDataSerializer.Deserialize<List<Model.MarketGroup>>(mGroups);
+                    }
                 }
             }
         }

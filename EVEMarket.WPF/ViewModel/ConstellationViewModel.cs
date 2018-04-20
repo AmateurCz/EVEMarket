@@ -1,12 +1,37 @@
-﻿using EVEMarket.Model;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using EVEMarket.Model;
+using GalaSoft.MvvmLight;
 
 namespace EVEMarket.WPF.ViewModel
 {
-    public class ConstellationViewModel
+    public class ConstellationViewModel : ViewModelBase
     {
         private Constellation _model;
+        private ObservableCollection<SolarSystemViewModel> _solarSystems;
+        private SolarSystemViewModel _selectedSolarSystem;
 
         public string Name => _model.Name;
+
+        public ObservableCollection<SolarSystemViewModel> SolarSystems
+        {
+            get
+            {
+                if (_solarSystems == null)
+                {
+                    _solarSystems = new ObservableCollection<SolarSystemViewModel>(_model.Systems.OrderBy(x => x.Name).Select(x => new SolarSystemViewModel(x)).ToList());
+                    _selectedSolarSystem = _solarSystems.First();
+                }
+
+                return _solarSystems;
+            }
+        }
+
+        public SolarSystemViewModel SelectedSolarSystem
+        {
+            get => _selectedSolarSystem;
+            set => Set(ref _selectedSolarSystem, value);
+        }
 
         public ConstellationViewModel(Constellation model)
         {

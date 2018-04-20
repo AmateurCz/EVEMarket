@@ -19,6 +19,9 @@
             <TextBlock Text="Constellation:" VerticalAlignment="Center" Margin="10,0,0,0"/>
             <ComboBox DataContext="{Binding SelectedRegion}" ItemsSource="{Binding Constellations}" SelectedItem="{Binding SelectedConstellation}" DisplayMemberPath="Name" Margin="5" MinWidth="50"/>
 
+            <TextBlock Text="Systems:" VerticalAlignment="Center" Margin="10,0,0,0"/>
+            <ComboBox DataContext="{Binding SelectedRegion.SelectedConstellation}" ItemsSource="{Binding SolarSystems}" SelectedItem="{Binding SelectedSolarSystem}" DisplayMemberPath="Name" Margin="5" MinWidth="50"/>
+
             <Button Content="Refresh" Margin="5" Padding="4" DockPanel.Dock="Right"/>
         </DockPanel>
 

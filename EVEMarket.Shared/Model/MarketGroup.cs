@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using YamlDotNet.Serialization;
 
 namespace EVEMarket.Model
 {
@@ -8,22 +9,22 @@ namespace EVEMarket.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [JsonProperty("ID")]
+        [YamlMember(Alias = "marketGroupID")]
         public int Id { get; set; }
 
-        [JsonProperty("marketGroupName")]
+        [YamlMember(Alias = "marketGroupName")]
         public string Name { get; set; }
 
-        [JsonProperty("iconID")]
+        [YamlMember(Alias = "iconID")]
         public int IconId { get; set; }
 
-        [JsonProperty("description")]
+        [YamlMember(Alias = "description")]
         public string Description { get; set; }
 
-        [JsonProperty("hasTypes")]
+        [YamlMember(Alias = "hasTypes")]
         public bool HasTypes { get; set; }
 
-        [JsonProperty("parentGroupID")]
+        [YamlMember(Alias = "parentGroupID")]
         [ForeignKey("ParentMarketGroup")]
         public int? ParentMarketGroupId { get; set; }
 
