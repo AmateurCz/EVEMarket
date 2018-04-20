@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Threading.Tasks;
 using EVEMarket.WPF.Data;
 using GalaSoft.MvvmLight;
 
@@ -23,12 +25,26 @@ namespace EVEMarket.WPF.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private RegionViewModel _selectedRegion;
+        private ObservableCollection<RegionViewModel> _regions;
+        private ObservableCollection<MarketGroupViewModel> _marketGroups;
 
-        public ObservableCollection<RegionViewModel> Regions { get; }
         public RegionViewModel SelectedRegion
         {
             get => _selectedRegion;
             set => Set(ref _selectedRegion, value);
+        }
+
+        public ObservableCollection<RegionViewModel> Regions
+        {
+            get => _regions;
+            set => Set(ref _regions, value);
+        }
+
+
+        public ObservableCollection<MarketGroupViewModel> MarketGroups
+        {
+            get => _marketGroups;
+            set => Set(ref _marketGroups, value);
         }
 
         /// <summary>
@@ -36,30 +52,43 @@ namespace EVEMarket.WPF.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            if (IsInDesignMode)
+            _regions = new ObservableCollection<RegionViewModel>();
+        }
+
+        internal async Task Initialize()
+        {
+            if (!IsInDesignMode)
             {
-                // Code runs in Blend --> create design time data.
-            }
-            else
-            {
-                // Code runs "for real"
-                using (var stream = File.Open(@"C:\Users\kubatdav\Downloads\sde-20180323-TRANQUILITY.zip", FileMode.Open))
+                List<RegionViewModel> regions = null;
+                List<MarketGroupViewModel> marketGroups = null;
+
+                await Task.Run(() =>
                 {
-                    var zipArchive = new ZipArchive(stream);
-
-                    var regions = RegionBuilder.BuildRegionsFromZipFile(zipArchive)
-                        .OrderBy(x => x.Id)
-                        .Select(x => new RegionViewModel(x))
-                        .ToList();
-
-                    SelectedRegion = regions.First();
-                    Regions = new ObservableCollection<RegionViewModel>(regions);
-
-                    using (var mGroups = zipArchive.GetEntry("sde/bsd/invMarketGroups.yaml").Open())
+                    using (var stream = File.Open(@"C:\Users\kubatdav\Downloads\sde-20180323-TRANQUILITY.zip", FileMode.Open))
                     {
-                        var marketGroups = StaticDataSerializer.Deserialize<List<Model.MarketGroup>>(mGroups);
+                        var zipArchive = new ZipArchive(stream);
+                        regions = RegionBuilder.BuildRegionsFromZipFile(zipArchive)
+                            .OrderBy(x => x.Id)
+                            .Select(x => new RegionViewModel(x))
+                            .ToList();
+
+                        using (var groupStream = zipArchive.GetEntry("sde/bsd/invMarketGroups.yaml").Open())
+                        {
+                            var mgModel = StaticDataSerializer.Deserialize<List<Model.MarketGroup>>(groupStream);
+                            marketGroups = mgModel.Where(x => x.ParentMarketGroupId == null).Select(x => new MarketGroupViewModel(x, mgModel)).ToList();
+                        }
+
+                        using (var typeStream = zipArchive.GetEntry("sde/fsd/typeIDs.yaml").Open())
+                        {
+                            var typeModel = StaticDataSerializer.Deserialize<Dictionary<int, Model.Type>>(typeStream);
+                        }
                     }
-                }
+                });
+
+                SelectedRegion = regions.First();
+
+                Regions = new ObservableCollection<RegionViewModel>(regions);
+                MarketGroups = new ObservableCollection<MarketGroupViewModel>(marketGroups);
             }
         }
     }

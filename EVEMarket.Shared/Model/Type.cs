@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using YamlDotNet.Serialization;
 
 namespace EVEMarket.Model
 {
@@ -8,52 +10,69 @@ namespace EVEMarket.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [JsonProperty("ID")]
         public int Id { get; set; }
 
-        [JsonProperty("groupID")]
+        [YamlMember(Alias = "groupID")]
         [ForeignKey("Group")]
         public int GroupId { get; set; }
 
-        [JsonIgnore]
+        [YamlMember(Alias = "marketGroupID")]
+        public int? MarketGroupId { get; set; }
+
         public Group Group { get; set; }
 
-        [JsonProperty("name")]
+        [YamlMember(Alias = "masteries")]
+        public Dictionary<int, int[]> Masteries { get; set; }
+
+        [YamlMember(Alias = "factionID")]
+        public int? FactionId { get; set; }
+        
+        [YamlMember(Alias = "name")]
         public Text Name { get; set; }
 
-        [JsonProperty("description")]
+        [YamlMember(Alias = "description")]
         public Text Description { get; set; }
 
-        [JsonProperty("portionSize")]
+        [YamlMember(Alias = "sofFactionName")]
+        public string FactionName { get; set; }
+        
+        [YamlMember(Alias = "portionSize")]
         public int PortionSize { get; set; }
 
-        [JsonProperty("mass")]
+        [YamlMember(Alias = "raceID")]
+        public int? RaceId { get; set; }
+
+        [YamlMember(Alias = "basePrice")]
+        public double? BasePrice { get; set; }
+
+        [YamlMember(Alias = "capacity")]
+        public double? Capacity { get; set; }
+
+        [YamlMember(Alias = "mass")]
         public double Mass { get; set; }
 
-        [JsonProperty("volume")]
+        [YamlMember(Alias = "volume")]
         public double Volume { get; set; }
 
-        [JsonProperty("radius")]
+        [YamlMember(Alias = "radius")]
         public double Radius { get; set; }
 
-        [JsonProperty("soundID")]
+        [YamlMember(Alias = "soundID")]
         public int SoundId { get; set; }
 
-        [JsonProperty("iconID")]
+        [YamlMember(Alias = "iconID")]
         [ForeignKey("Icon")]
         public int IconId { get; set; }
-
-        [JsonIgnore]
+        
         public Icon Icon { get; set; }
 
-        [JsonProperty("graphicID")]
+        [YamlMember(Alias = "graphicID")]
         [ForeignKey("graphic")]
         public int GraphicId { get; set; }
-
-        [JsonIgnore]
+        
         public Graphic Graphic { get; set; }
 
-        [JsonProperty("published")]
+        [YamlMember(Alias = "published")]
         public bool Published { get; set; }
 
         public override string ToString()

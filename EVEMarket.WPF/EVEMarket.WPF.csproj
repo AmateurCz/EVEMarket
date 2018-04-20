@@ -91,6 +91,7 @@
     <Compile Include="Data\StaticDataSerializer.cs" />
     <Compile Include="ViewModel\ConstellationViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MarketGroupViewModel.cs" />
     <Compile Include="ViewModel\RegionViewModel.cs" />
     <Compile Include="ViewModel\SolarSystemViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
