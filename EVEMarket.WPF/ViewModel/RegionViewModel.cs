@@ -26,6 +26,10 @@ namespace EVEMarket.WPF.ViewModel
             }
         }
 
+        public string Name => _model.Name;
+
+        public int Id => _model.Id;
+
         public ConstellationViewModel SelectedConstellation
         {
             get => _selectedConstellation;
@@ -36,7 +40,5 @@ namespace EVEMarket.WPF.ViewModel
         {
             _model = model;
         }
-
-        public string Name => _model.Name;
     }
 }

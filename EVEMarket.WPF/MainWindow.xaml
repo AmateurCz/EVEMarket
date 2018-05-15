@@ -3,8 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:EVEMarket.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:EVEMarket.WPF.ViewModel"
     Title="MainWindow"
     Width="800"
     Height="600"
@@ -52,25 +52,20 @@
                 ItemsSource="{Binding SolarSystems}"
                 SelectedItem="{Binding SelectedSolarSystem}" />
 
-            <Button
-                Margin="5"
-                Padding="4"
-                Content="Refresh"
-                DockPanel.Dock="Right" />
         </DockPanel>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" 
-                MinWidth="200" />
+                <ColumnDefinition Width="auto" MinWidth="200" />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TreeView
+                x:Name="MarketTree"
                 HorizontalAlignment="Stretch"
                 ItemsSource="{Binding MarketGroups}">
                 <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding ChildGroups}">
+                    <HierarchicalDataTemplate ItemsSource="{Binding ChildItems}">
                         <TextBlock Text="{Binding Name}" />
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
@@ -81,8 +76,41 @@
                 VerticalAlignment="Stretch"
                 ResizeBehavior="PreviousAndNext"
                 ResizeDirection="Columns" />
-            
-            <ContentControl Grid.Column="2" />
+
+            <ContentControl Grid.Column="2" Content="{Binding SelectedItem, ElementName=MarketTree, Mode=OneWay}">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type vm:MarketGroupViewModel}">
+                        <Grid>
+                            <TextBlock Text="{Binding Name}" />
+                        </Grid>
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type vm:TypeViewModel}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Sell orders" />
+                            <DataGrid Grid.Row="1" ItemsSource="{Binding SellOrders}" AutoGenerateColumns="True"/>
+
+                            <TextBlock Grid.Row="2" Text="Buy orders" />
+                            <DataGrid Grid.Row="3" ItemsSource="{Binding BuyOrders}" AutoGenerateColumns="True"/>
+
+                            <Button
+                                Margin="5"
+                                Padding="4"
+                                Grid.Row="4"
+                                HorizontalAlignment="Right"
+                                Content="Refresh" 
+                                Command="{Binding RefreshData}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
         </Grid>
 
         <StatusBar Grid.Row="2">

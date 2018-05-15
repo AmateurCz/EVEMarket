@@ -14,7 +14,7 @@ namespace EVEMarket.Model
 
         [YamlMember(Alias = "groupID")]
         [ForeignKey("Group")]
-        public int GroupId { get; set; }
+        public int? GroupId { get; set; }
 
         [YamlMember(Alias = "marketGroupID")]
         public int? MarketGroupId { get; set; }
@@ -37,7 +37,7 @@ namespace EVEMarket.Model
         public string FactionName { get; set; }
         
         [YamlMember(Alias = "portionSize")]
-        public int PortionSize { get; set; }
+        public int? PortionSize { get; set; }
 
         [YamlMember(Alias = "raceID")]
         public int? RaceId { get; set; }
@@ -49,31 +49,37 @@ namespace EVEMarket.Model
         public double? Capacity { get; set; }
 
         [YamlMember(Alias = "mass")]
-        public double Mass { get; set; }
+        public double? Mass { get; set; }
 
         [YamlMember(Alias = "volume")]
-        public double Volume { get; set; }
+        public double? Volume { get; set; }
 
         [YamlMember(Alias = "radius")]
-        public double Radius { get; set; }
+        public double? Radius { get; set; }
 
         [YamlMember(Alias = "soundID")]
-        public int SoundId { get; set; }
+        public int? SoundId { get; set; }
 
         [YamlMember(Alias = "iconID")]
         [ForeignKey("Icon")]
-        public int IconId { get; set; }
+        public int? IconId { get; set; }
         
         public Icon Icon { get; set; }
 
         [YamlMember(Alias = "graphicID")]
         [ForeignKey("graphic")]
-        public int GraphicId { get; set; }
+        public int? GraphicId { get; set; }
         
         public Graphic Graphic { get; set; }
 
         [YamlMember(Alias = "published")]
         public bool Published { get; set; }
+
+        [YamlMember(Alias = "traits")]
+        public Traits Traits { get; set; }
+        
+        [YamlMember(Alias = "sofMaterialSetID")]
+        public int? SofMaterialSetId { get; set; }
 
         public override string ToString()
         {

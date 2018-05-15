@@ -15,7 +15,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Group.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Icon.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\MarketGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Bonus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\MarketOrder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\SolarSystem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Traits.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\UniqueName.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Name.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Region.cs" />
