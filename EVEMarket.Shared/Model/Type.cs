@@ -15,11 +15,13 @@ namespace EVEMarket.Model
         [YamlMember(Alias = "groupID")]
         [ForeignKey("Group")]
         public int? GroupId { get; set; }
+        public Group Group { get; set; }
 
         [YamlMember(Alias = "marketGroupID")]
+        [ForeignKey("MarketGroup")]
         public int? MarketGroupId { get; set; }
 
-        public Group Group { get; set; }
+        public MarketGroup MarketGroup { get; set; }
 
         [YamlMember(Alias = "masteries")]
         public Dictionary<int, int[]> Masteries { get; set; }
@@ -80,6 +82,7 @@ namespace EVEMarket.Model
         
         [YamlMember(Alias = "sofMaterialSetID")]
         public int? SofMaterialSetId { get; set; }
+
 
         public override string ToString()
         {

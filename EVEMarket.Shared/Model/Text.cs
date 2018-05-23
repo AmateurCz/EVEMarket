@@ -48,6 +48,10 @@ namespace EVEMarket.Model
                     return Fr;
                 case "ja":
                     return Ja;
+                case "es":
+                    return Es;
+                case "it":
+                    return It;
                 case "ru":
                     return Ru;
                 case "zh":

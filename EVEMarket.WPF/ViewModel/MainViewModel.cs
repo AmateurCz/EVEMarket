@@ -58,46 +58,12 @@ namespace EVEMarket.WPF.ViewModel
         internal async Task Initialize()
         {
             if (!IsInDesignMode)
-            {
-                List<Model.Type> types = null;
-                List<RegionViewModel> regions = null;
-                List<MarketGroupViewModel> marketGroups = null;
+            {   
                 
-                await Task.Run(() =>
-                {
-                    using (var stream = File.Open(@"C:\Users\kubatdav\Downloads\sde-20180323-TRANQUILITY.zip", FileMode.Open))
-                    {
-                        var zipArchive = new ZipArchive(stream);
+                Regions = new ObservableCollection<RegionViewModel>();
+                SelectedRegion = Regions.First();
 
-                        using (var typeStream = zipArchive.GetEntry("sde/fsd/typeIDs.yaml").Open())
-                        {
-                            var typeModel = StaticDataSerializer.Deserialize<Dictionary<int, Model.Type>>(typeStream);
-
-                            types = typeModel.Where(x => x.Value.Published && x.Value.MarketGroupId != null).Select(x =>
-                            {
-                                var value = x.Value;
-                                value.Id = x.Key;
-                                return value;
-                            }).ToList();
-                        }
-
-                        regions = RegionBuilder.BuildRegionsFromZipFile(zipArchive)
-                            .OrderBy(x => x.Id)
-                            .Select(x => new RegionViewModel(x))
-                            .ToList();
-
-                        using (var groupStream = zipArchive.GetEntry("sde/bsd/invMarketGroups.yaml").Open())
-                        {
-                            var mgModel = StaticDataSerializer.Deserialize<List<Model.MarketGroup>>(groupStream);
-                            marketGroups = mgModel.Where(x => x.ParentMarketGroupId == null).Select(x => new MarketGroupViewModel(x, mgModel, types)).ToList();
-                        }
-                    }
-                });
-
-                SelectedRegion = regions.First();
-
-                Regions = new ObservableCollection<RegionViewModel>(regions);
-                MarketGroups = new ObservableCollection<MarketGroupViewModel>(marketGroups);
+                MarketGroups = new ObservableCollection<MarketGroupViewModel>();
             }
         }
     }

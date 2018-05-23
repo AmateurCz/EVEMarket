@@ -9,9 +9,9 @@ namespace EVEMarket.WPF.Data
     {
         public bool Deserialize(IParser reader, Type expectedType, Func<IParser, Type, object> nestedObjectDeserializer, out object value)
         {
-            if (expectedType == typeof(EVEMarket.Model.Vector3))
+            if (expectedType == typeof(Model.Vector3))
             {
-                var vector = new EVEMarket.Model.Vector3();
+                var vector = new Model.Vector3();
                 vector.X = ParseDouble(reader);
                 vector.Y = ParseDouble(reader);
                 vector.Z = ParseDouble(reader);

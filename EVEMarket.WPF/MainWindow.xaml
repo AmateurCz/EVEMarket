@@ -86,7 +86,16 @@
                     </DataTemplate>
 
                     <DataTemplate DataType="{x:Type vm:TypeViewModel}">
-                        <Grid>
+                        <Grid Margin="2">
+                            <Grid.Resources>
+                                <Style x:Key="DataGridSyle" TargetType="DataGrid">
+                                    <Setter Property="AutoGenerateColumns" Value="true" />
+                                    <Setter Property="VerticalGridLinesBrush" Value="DarkGray" />
+                                    <Setter Property="HorizontalGridLinesBrush" Value="DarkGray" />
+                                    <Setter Property="RowBackground" Value="WhiteSmoke" />
+                                    <Setter Property="AlternatingRowBackground" Value="LightBlue" />
+                                </Style>
+                            </Grid.Resources>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="*" />
@@ -95,18 +104,24 @@
                                 <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Text="Sell orders" />
-                            <DataGrid Grid.Row="1" ItemsSource="{Binding SellOrders}" AutoGenerateColumns="True"/>
+                            <DataGrid
+                                Grid.Row="1"
+                                ItemsSource="{Binding SellOrders}"
+                                Style="{StaticResource DataGridSyle}" />
 
                             <TextBlock Grid.Row="2" Text="Buy orders" />
-                            <DataGrid Grid.Row="3" ItemsSource="{Binding BuyOrders}" AutoGenerateColumns="True"/>
+                            <DataGrid
+                                Grid.Row="3"
+                                ItemsSource="{Binding BuyOrders}"
+                                Style="{StaticResource DataGridSyle}" />
 
                             <Button
+                                Grid.Row="4"
                                 Margin="5"
                                 Padding="4"
-                                Grid.Row="4"
                                 HorizontalAlignment="Right"
-                                Content="Refresh" 
-                                Command="{Binding RefreshData}"/>
+                                Command="{Binding RefreshData}"
+                                Content="Refresh" />
                         </Grid>
                     </DataTemplate>
                 </ContentControl.Resources>

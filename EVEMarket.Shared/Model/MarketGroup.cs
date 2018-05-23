@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using YamlDotNet.Serialization;
@@ -29,6 +30,8 @@ namespace EVEMarket.Model
         public int? ParentMarketGroupId { get; set; }
 
         [JsonIgnore]
-        public virtual MarketGroup ParentMarketGroup { get; set; }     
+        public virtual MarketGroup ParentMarketGroup { get; set; }
+
+        public virtual List<MarketGroup> Children { get; set; } = new List<MarketGroup>();
     }
 }

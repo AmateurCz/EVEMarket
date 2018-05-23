@@ -9,6 +9,11 @@
     <Import_RootNamespace>EVEMarket</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)DataProviders\Esi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataProviders\StaticData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\RegionBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\StaticDataSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\VectorDeserializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Category.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Constellation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Graphic.cs" />

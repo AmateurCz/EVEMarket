@@ -1,12 +1,4 @@
-﻿using EVEMarket.Model;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+﻿using System.IO;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -21,7 +13,7 @@ namespace EVEMarket.WPF.Data
                                      .WithNodeDeserializer(new VectorDeserializer())
                                      .Build();
             StreamReader reader = new StreamReader(stream);
-            return deserializer.Deserialize<T>(reader.ReadToEnd());
+            return deserializer.Deserialize<T>(reader);
         } 
     }
 }
