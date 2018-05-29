@@ -9,7 +9,7 @@ using EveType = EVEMarket.Model.Type;
 
 namespace EVEMarket.DataProviders
 {
-    public class StaticData : IDisposable
+    public class ZipStaticData : IDisposable
     {
         private const string MarketGroupFileName = "sde/bsd/invMarketGroups.yaml";
         private const string TypeFileName = "sde/fsd/typeIDs.yaml";
@@ -48,7 +48,7 @@ namespace EVEMarket.DataProviders
                     while (groupsToProcess.Count > 0)
                     {
                         var group = groupsToProcess.Dequeue();
-                        group.Children = groupsToProcess.Where(x => x.ParentMarketGroupId == group.Id).ToList();
+                        group.Children = MarketGroups.Where(x => x.ParentMarketGroupId == group.Id).ToList();
                         foreach (var child in group.Children)
                         {
                             child.ParentMarketGroup = group;

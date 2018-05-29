@@ -10,7 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)DataProviders\Esi.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DataProviders\StaticData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataProviders\IStaticData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataProviders\ZipStaticData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\RegionBuilder.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\StaticDataSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\VectorDeserializer.cs" />

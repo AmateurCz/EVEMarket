@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
+using EVEMarket.Model;
 using EVEMarket.WPF.Data;
 using GalaSoft.MvvmLight;
 
@@ -58,12 +59,25 @@ namespace EVEMarket.WPF.ViewModel
         internal async Task Initialize()
         {
             if (!IsInDesignMode)
-            {   
-                
-                Regions = new ObservableCollection<RegionViewModel>();
-                SelectedRegion = Regions.First();
+            {
 
-                MarketGroups = new ObservableCollection<MarketGroupViewModel>();
+                Regions = new ObservableCollection<RegionViewModel>()
+                {
+                    new RegionViewModel(
+                        new Model.Region {
+                            Name = "Test",
+                            Constellations = new List<Constellation> {
+                            new Constellation
+                            {
+                                Systems = new List<SolarSystem>{ new SolarSystem { Name = "Test" } },
+                                Name = "Test"
+                            }}})
+                };
+
+                SelectedRegion = Regions.First();
+                var staticData = new DataProviders.DbStaticData();
+                MarketGroups = new ObservableCollection<MarketGroupViewModel>(
+                    staticData.MarketGroupTree.Select(x => new MarketGroupViewModel(x, staticData)));
             }
         }
     }

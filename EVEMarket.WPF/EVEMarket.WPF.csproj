@@ -153,6 +153,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataProviders\DbStaticData.cs" />
     <Compile Include="Data\EveDbContext.cs" />
     <Compile Include="Interfaces\IMarketTreeItem.cs" />
     <Compile Include="ViewModel\ConstellationViewModel.cs" />

@@ -4,14 +4,14 @@ using System.Collections.ObjectModel;
 using EVEMarket.Model;
 using GalaSoft.MvvmLight;
 using EVEMarket.WPF.Interfaces;
+using EVEMarket.DataProviders;
 
 namespace EVEMarket.WPF.ViewModel
 {
     public class MarketGroupViewModel : ViewModelBase, IMarketTreeItem
     {
         private readonly MarketGroup _model;
-        private readonly IEnumerable<Type> _types;
-        private readonly IEnumerable<MarketGroup> _otherGroups;
+        private readonly IStaticData _staticData;
 
         private ObservableCollection<IMarketTreeItem> _childGroups;
 
@@ -21,15 +21,14 @@ namespace EVEMarket.WPF.ViewModel
             {
                 if (_childGroups == null)
                 {
-                    var groups = _otherGroups
+                    var groups = _model.Children
                         .Where(x => x.ParentMarketGroupId == _model.Id)
-                        .Select(x => (IMarketTreeItem)new MarketGroupViewModel(x, _otherGroups, _types));
+                        .Select(x => (IMarketTreeItem)new MarketGroupViewModel(x, _staticData));
 
-                    var types = _types.Where(x => x.MarketGroupId == _model.Id)
+                    var types = _staticData.Types.Values.Where(x => x.MarketGroupId == _model.Id)
                             .Select(x => (IMarketTreeItem)new TypeViewModel(x));
 
-                    _childGroups = new ObservableCollection<IMarketTreeItem>(
-                            groups.Union(types));
+                    _childGroups = new ObservableCollection<IMarketTreeItem>(groups.Union(types));
                 }
 
                 return _childGroups;
@@ -38,11 +37,10 @@ namespace EVEMarket.WPF.ViewModel
 
         public string Name => _model.Name;
 
-        public MarketGroupViewModel(MarketGroup model, IEnumerable<MarketGroup> otherGroups, IEnumerable<Type> types)
+        public MarketGroupViewModel(MarketGroup model, IStaticData sData)
         {
             _model = model;
-            _types = types;
-            _otherGroups = otherGroups;
+            _staticData = sData;
         }
     }
 }

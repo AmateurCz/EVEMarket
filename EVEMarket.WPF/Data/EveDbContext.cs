@@ -9,6 +9,13 @@ namespace EVEMarket.WPF.Data
         {
         }
 
-        public DbSet<Region> Regions { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite(@"DataSource=C:\Users\kubatdav\Downloads\SDE\EveStaticData.sqlite;");
+        }
+
+        public DbSet<MarketGroup> MarketGroups { get; set; }
+
+        public DbSet<Type> Types { get; set; }
     }
 }
