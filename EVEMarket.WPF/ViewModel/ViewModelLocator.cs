@@ -13,6 +13,8 @@
 */
 
 using CommonServiceLocator;
+using EVEMarket.DataProviders;
+using EVEMarket.WPF.DataProviders;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace EVEMarket.WPF.ViewModel
@@ -41,6 +43,7 @@ namespace EVEMarket.WPF.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
+            SimpleIoc.Default.Register<IStaticData, DbStaticData>();
             SimpleIoc.Default.Register<MainViewModel>();
         }
 

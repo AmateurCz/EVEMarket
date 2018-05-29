@@ -13,9 +13,6 @@ namespace EVEMarket.WPF.DataProviders
     class DbStaticData : IStaticData
     {
         private EveDbContext _context;
-        private List<MarketGroup> _marketGroups;
-        private List<MarketGroup> _marketGroupTree;
-        private Dictionary<int, EveType> _types;
 
         private EveDbContext Context
         {
@@ -30,56 +27,14 @@ namespace EVEMarket.WPF.DataProviders
             }
         }
 
-        public List<MarketGroup> MarketGroups
-        {
-            get
-            {
-                if(_marketGroups == null)
-                    _marketGroups = Context.MarketGroups.ToList();
-                return _marketGroups;
-            }
-        }
+        public IQueryable<MarketGroup> MarketGroups => Context.MarketGroups;
 
-        public List<MarketGroup> MarketGroupTree
-        {
-            get
-            {
-                if (null == _marketGroupTree)
-                {
-                    // get root market groups
-                    _marketGroupTree = MarketGroups.Where(x => x.ParentMarketGroupId == null).ToList();
+        public IQueryable<EveType> Types => Context.Types;
 
-                    // fill children
-                    Queue<MarketGroup> groupsToProcess = new Queue<MarketGroup>(_marketGroupTree);
-                    while (groupsToProcess.Count > 0)
-                    {
-                        var group = groupsToProcess.Dequeue();
-                        group.Children = MarketGroups.Where(x => x.ParentMarketGroupId == group.Id).ToList();
-                        foreach (var child in group.Children)
-                        {
-                            child.ParentMarketGroup = group;
-                            groupsToProcess.Enqueue(child);
-                        }
-                    }
-                }
+        public IQueryable<Region> Regions => Context.Regions;
 
-                return _marketGroupTree;
-            }
-        }
+        public IQueryable<Constellation> Constellations => Context.Constellations;
 
-        public Dictionary<int, EveType> Types
-        {
-            get
-            {
-                if(_types == null)
-                {
-                    _types = Context.Types.ToDictionary(x => x.Id);
-                }
-
-                return _types;
-            }
-        }
-
-
+        public IQueryable<SolarSystem> SolarSystems => Context.SolarSystems;
     }
 }

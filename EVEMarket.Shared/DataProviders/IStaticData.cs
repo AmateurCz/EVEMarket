@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using EVEMarket.Model;
 using EveType = EVEMarket.Model.Type;
@@ -8,10 +9,14 @@ namespace EVEMarket.DataProviders
 {
     public interface IStaticData
     {
-        List<MarketGroup> MarketGroups { get; }
+        IQueryable<Region> Regions { get; }
 
-        List<MarketGroup> MarketGroupTree { get; }
+        IQueryable<MarketGroup> MarketGroups { get; }
+        
+        IQueryable<EveType> Types { get; }
 
-        Dictionary<int, EveType> Types { get; }
+        IQueryable<Constellation> Constellations { get; }
+
+        IQueryable<SolarSystem> SolarSystems { get; }
     }
 }

@@ -64,11 +64,15 @@
                 x:Name="MarketTree"
                 HorizontalAlignment="Stretch"
                 ItemsSource="{Binding MarketGroups}">
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate ItemsSource="{Binding ChildItems}">
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type vm:MarketGroupViewModel}" ItemsSource="{Binding ChildItems}">
                         <TextBlock Text="{Binding Name}" />
                     </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
+
+                    <HierarchicalDataTemplate DataType="{x:Type vm:TypeViewModel}">
+                        <TextBlock Text="{Binding Name}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>
             </TreeView>
             <GridSplitter
                 Grid.Column="1"

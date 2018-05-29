@@ -6,22 +6,19 @@ using System.Net.Http;
 using System.Windows.Input;
 using CommonServiceLocator;
 using EVEMarket.Model;
-using EVEMarket.WPF.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Newtonsoft.Json;
 
 namespace EVEMarket.WPF.ViewModel
 {
-    public class TypeViewModel : ViewModelBase, IMarketTreeItem
+    public class TypeViewModel : ViewModelBase
     {
         public int Id => _model.Id;
 
         public string Name => _model.Name?.En ?? string.Empty;
 
         public ICommand RefreshData { get; }
-
-        public ObservableCollection<IMarketTreeItem> ChildItems { get; }
 
         public ObservableCollection<MarketOrderViewModel> SellOrders { get; }
 
@@ -31,10 +28,9 @@ namespace EVEMarket.WPF.ViewModel
 
         public TypeViewModel(Model.Type model)
         {
-            _model = model ?? throw new System.ArgumentNullException(nameof(model));
+            _model = model ?? throw new ArgumentNullException(nameof(model));
             RefreshData = new RelayCommand(RefreshOrders);
 
-            ChildItems = new ObservableCollection<IMarketTreeItem>();
             SellOrders = new ObservableCollection<MarketOrderViewModel>();
             BuyOrders = new ObservableCollection<MarketOrderViewModel>();
         }

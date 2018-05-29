@@ -1,4 +1,5 @@
-﻿using EVEMarket.Model;
+﻿using System;
+using EVEMarket.Model;
 
 namespace EVEMarket.WPF.ViewModel
 {
@@ -10,7 +11,7 @@ namespace EVEMarket.WPF.ViewModel
 
         public SolarSystemViewModel(SolarSystem model)
         {
-            _model = model;
+            _model = model ?? throw new ArgumentNullException(nameof(model)); 
         }
     }
 }

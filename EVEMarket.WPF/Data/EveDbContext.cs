@@ -17,5 +17,11 @@ namespace EVEMarket.WPF.Data
         public DbSet<MarketGroup> MarketGroups { get; set; }
 
         public DbSet<Type> Types { get; set; }
+
+        public DbSet<Region> Regions { get; set; }
+
+        public DbSet<Constellation> Constellations { get; set; }
+
+        public DbSet<SolarSystem> SolarSystems { get; set; }
     }
 }

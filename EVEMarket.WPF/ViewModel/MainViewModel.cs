@@ -5,9 +5,12 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
+using CommonServiceLocator;
+using EVEMarket.DataProviders;
 using EVEMarket.Model;
 using EVEMarket.WPF.Data;
 using GalaSoft.MvvmLight;
+using Microsoft.EntityFrameworkCore;
 
 namespace EVEMarket.WPF.ViewModel
 {
@@ -60,24 +63,13 @@ namespace EVEMarket.WPF.ViewModel
         {
             if (!IsInDesignMode)
             {
+                var staticData = ServiceLocator.Current.GetInstance<IStaticData>();
+                var regions = await staticData.Regions.ToListAsync();
+                var mGroups = await staticData.MarketGroups.Where(x => x.ParentMarketGroupId == null).ToListAsync();
 
-                Regions = new ObservableCollection<RegionViewModel>()
-                {
-                    new RegionViewModel(
-                        new Model.Region {
-                            Name = "Test",
-                            Constellations = new List<Constellation> {
-                            new Constellation
-                            {
-                                Systems = new List<SolarSystem>{ new SolarSystem { Name = "Test" } },
-                                Name = "Test"
-                            }}})
-                };
-
+                MarketGroups = new ObservableCollection<MarketGroupViewModel>(mGroups.Select(x => new MarketGroupViewModel(x)));
+                Regions = new ObservableCollection<RegionViewModel>(regions.Select(x => new RegionViewModel(x)));
                 SelectedRegion = Regions.First();
-                var staticData = new DataProviders.DbStaticData();
-                MarketGroups = new ObservableCollection<MarketGroupViewModel>(
-                    staticData.MarketGroupTree.Select(x => new MarketGroupViewModel(x, staticData)));
             }
         }
     }

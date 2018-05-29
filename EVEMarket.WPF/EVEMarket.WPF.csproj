@@ -155,7 +155,6 @@
     </ApplicationDefinition>
     <Compile Include="DataProviders\DbStaticData.cs" />
     <Compile Include="Data\EveDbContext.cs" />
-    <Compile Include="Interfaces\IMarketTreeItem.cs" />
     <Compile Include="ViewModel\ConstellationViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MarketGroupViewModel.cs" />
@@ -206,6 +205,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="..\EVEMarket.Shared\EVEMarket.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

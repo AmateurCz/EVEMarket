@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using CommonServiceLocator;
+using EVEMarket.DataProviders;
 using EVEMarket.Model;
 using GalaSoft.MvvmLight;
 
@@ -19,7 +21,10 @@ namespace EVEMarket.WPF.ViewModel
             {
                 if (_solarSystems == null)
                 {
-                    _solarSystems = new ObservableCollection<SolarSystemViewModel>(_model.Systems.OrderBy(x => x.Name).Select(x => new SolarSystemViewModel(x)).ToList());
+                    var staticData = ServiceLocator.Current.GetInstance<IStaticData>();
+                    var solarSystems = staticData.SolarSystems.Where(x => x.ConstellationId == _model.Id).ToList();
+
+                    _solarSystems = new ObservableCollection<SolarSystemViewModel>(solarSystems.Select(x => new SolarSystemViewModel(x)));
                     _selectedSolarSystem = _solarSystems.First();
                 }
 
