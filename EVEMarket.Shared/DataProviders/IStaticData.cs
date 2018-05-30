@@ -18,5 +18,7 @@ namespace EVEMarket.DataProviders
         IQueryable<Constellation> Constellations { get; }
 
         IQueryable<SolarSystem> SolarSystems { get; }
+
+        IQueryable<UniqueName> UniqueNames { get; }
     }
 }

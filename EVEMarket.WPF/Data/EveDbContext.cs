@@ -23,5 +23,7 @@ namespace EVEMarket.WPF.Data
         public DbSet<Constellation> Constellations { get; set; }
 
         public DbSet<SolarSystem> SolarSystems { get; set; }
+
+        public DbSet<UniqueName> UniqueNames { get; set; }
     }
 }

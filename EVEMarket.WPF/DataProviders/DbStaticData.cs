@@ -36,5 +36,7 @@ namespace EVEMarket.WPF.DataProviders
         public IQueryable<Constellation> Constellations => Context.Constellations;
 
         public IQueryable<SolarSystem> SolarSystems => Context.SolarSystems;
+
+        public IQueryable<UniqueName> UniqueNames => Context.UniqueNames;
     }
 }

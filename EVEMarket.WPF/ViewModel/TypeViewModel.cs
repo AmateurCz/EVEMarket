@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Windows.Input;
 using CommonServiceLocator;
+using EVEMarket.DataProviders;
 using EVEMarket.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace EVEMarket.WPF.ViewModel
@@ -42,16 +45,28 @@ namespace EVEMarket.WPF.ViewModel
 
             if (regionId.HasValue)
             {
+                var staticData = ServiceLocator.Current.GetInstance<IStaticData>();
+
                 var client = new HttpClient();
                 var result = await client.GetAsync($"https://esi.evetech.net/latest/markets/{regionId}/orders/?datasource=tranquility&order_type=sell&type_id={this.Id}", HttpCompletionOption.ResponseContentRead);
 
                 var content = await result.Content.ReadAsStringAsync();
                 var orders = JsonConvert.DeserializeObject<List<MarketOrder>>(content);
 
+                var locationIds = orders.Select(x => x.LocationId).Distinct().ToList();
+
+                var names = await staticData.UniqueNames.Where(x => locationIds.Contains(x.Id)).ToDictionaryAsync(x=> x.Id);
+
                 SellOrders.Clear();
                 foreach (var order in orders)
                 {
-                    SellOrders.Add(new MarketOrderViewModel(order));
+                    string name = string.Empty;
+                    if(names.TryGetValue(order.LocationId, out var uniqueName))
+                    {
+                        name = uniqueName.ItemName;
+                    }
+
+                    SellOrders.Add(new MarketOrderViewModel(order, name));
                 }
 
                 result = await client.GetAsync($"https://esi.evetech.net/latest/markets/{regionId}/orders/?datasource=tranquility&order_type=buy&type_id={this.Id}", HttpCompletionOption.ResponseContentRead);
@@ -59,10 +74,19 @@ namespace EVEMarket.WPF.ViewModel
                 content = await result.Content.ReadAsStringAsync();
                 orders = JsonConvert.DeserializeObject<List<MarketOrder>>(content);
 
+                locationIds = orders.Select(x => x.LocationId).Distinct().ToList();
+                names = await staticData.UniqueNames.Where(x => locationIds.Contains(x.Id)).ToDictionaryAsync(x => x.Id);
+
                 BuyOrders.Clear();
                 foreach (var order in orders)
                 {
-                    BuyOrders.Add(new MarketOrderViewModel(order));
+                    string name = string.Empty;
+                    if (names.TryGetValue(order.LocationId, out var uniqueName))
+                    {
+                        name = uniqueName.ItemName;
+                    }
+
+                    BuyOrders.Add(new MarketOrderViewModel(order, name));
                 }
             }
         }

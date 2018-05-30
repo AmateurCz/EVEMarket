@@ -5,9 +5,9 @@ namespace EVEMarket.WPF.ViewModel
 {
     public class MarketOrderViewModel
     {
-        private MarketOrder _model;
+        private readonly MarketOrder _model;
 
-        public string Location => _model.LocationId.ToString();
+        public string Location { get; }
                
         public double Price => _model.Price;
 
@@ -17,10 +17,10 @@ namespace EVEMarket.WPF.ViewModel
 
         public DateTime Issued => _model.Issued;
 
-
-        public MarketOrderViewModel(MarketOrder model)
+        public MarketOrderViewModel(MarketOrder model, string locationName)
         {
             _model = model;
+            Location = locationName;
         }
     }
 }
