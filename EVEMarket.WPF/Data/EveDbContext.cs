@@ -5,14 +5,7 @@ namespace EVEMarket.WPF.Data
 {
     public class EveDbContext : DbContext
     {
-        public EveDbContext() : base()
-        {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite(@"DataSource=C:\Users\kubatdav\Downloads\SDE\EveStaticData.sqlite;");
-        }
+        protected string ConnectionString => $"DataSource={Properties.Settings.Default.StaticDataDBLocation};"
 
         public DbSet<MarketGroup> MarketGroups { get; set; }
 
@@ -24,6 +17,11 @@ namespace EVEMarket.WPF.Data
 
         public DbSet<SolarSystem> SolarSystems { get; set; }
 
-        public DbSet<UniqueName> UniqueNames { get; set; }
+        public DbSet<UniqueName> UniqueNames { get; set; }        
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite(ConnectionString);
+        }
     }
 }
