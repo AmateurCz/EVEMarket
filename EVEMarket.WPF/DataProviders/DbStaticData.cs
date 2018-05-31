@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using EVEMarket.DataProviders;
 using EVEMarket.Model;
 using EVEMarket.WPF.Data;
@@ -10,7 +6,7 @@ using EveType = EVEMarket.Model.Type;
 
 namespace EVEMarket.WPF.DataProviders
 {
-    class DbStaticData : IStaticData
+    internal class DbStaticData : IStaticData
     {
         private EveDbContext _context;
 
@@ -20,7 +16,6 @@ namespace EVEMarket.WPF.DataProviders
             {
                 if (_context == null)
                 {
-                    SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_e_sqlite3());
                     _context = new EveDbContext();
                 }
                 return _context;

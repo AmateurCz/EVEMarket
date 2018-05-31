@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using YamlDotNet.Serialization;
@@ -15,6 +14,7 @@ namespace EVEMarket.Model
         public int Id { get; set; }
 
         [YamlMember(Alias = "groupID")]
+
         //[ForeignKey("Group")]
         [Column("groupID")]
         public int? GroupId { get; set; }
@@ -53,7 +53,7 @@ namespace EVEMarket.Model
         [YamlMember(Alias = "sofFactionName")]
         [Column("sofFactionName")]
         public string FactionName { get; set; }
-        
+
         [YamlMember(Alias = "portionSize")]
         [Column("portionSize")]
         public int? PortionSize { get; set; }
@@ -90,14 +90,14 @@ namespace EVEMarket.Model
         [ForeignKey("Icon")]
         [Column("iconID")]
         public int? IconId { get; set; }
-        
+
         public Icon Icon { get; set; }
 
         [YamlMember(Alias = "graphicID")]
         [ForeignKey("graphic")]
         [Column("graphicID")]
         public int? GraphicId { get; set; }
-        
+
         public Graphic Graphic { get; set; }
 
         [YamlMember(Alias = "published")]
@@ -107,11 +107,10 @@ namespace EVEMarket.Model
         [YamlMember(Alias = "traits")]
         [NotMapped]
         public Traits Traits { get; set; }
-        
+
         [YamlMember(Alias = "sofMaterialSetID")]
         [Column("sofMaterialSetID")]
         public int? SofMaterialSetId { get; set; }
-
 
         public override string ToString()
         {

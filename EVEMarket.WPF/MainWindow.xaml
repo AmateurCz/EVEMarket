@@ -51,7 +51,6 @@
                 DisplayMemberPath="Name"
                 ItemsSource="{Binding SolarSystems}"
                 SelectedItem="{Binding SelectedSolarSystem}" />
-
         </DockPanel>
 
         <Grid Grid.Row="1">

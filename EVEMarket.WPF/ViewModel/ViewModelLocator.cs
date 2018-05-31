@@ -4,7 +4,7 @@
       <vm:ViewModelLocator xmlns:vm="clr-namespace:EVEMarket.WPF"
                            x:Key="Locator" />
   </Application.Resources>
-  
+
   In the View:
   DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
 
@@ -13,8 +13,6 @@
 */
 
 using CommonServiceLocator;
-using EVEMarket.DataProviders;
-using EVEMarket.WPF.DataProviders;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace EVEMarket.WPF.ViewModel
@@ -43,7 +41,6 @@ namespace EVEMarket.WPF.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            SimpleIoc.Default.Register<IStaticData, DbStaticData>();
             SimpleIoc.Default.Register<MainViewModel>();
         }
 
@@ -54,7 +51,7 @@ namespace EVEMarket.WPF.ViewModel
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
-        
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

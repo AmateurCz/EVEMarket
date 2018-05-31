@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using CommonServiceLocator;
 using EVEMarket.DataProviders;
-using EVEMarket.Model;
-using EVEMarket.WPF.Data;
 using GalaSoft.MvvmLight;
 using Microsoft.EntityFrameworkCore;
 
@@ -43,7 +37,6 @@ namespace EVEMarket.WPF.ViewModel
             get => _regions;
             set => Set(ref _regions, value);
         }
-
 
         public ObservableCollection<MarketGroupViewModel> MarketGroups
         {

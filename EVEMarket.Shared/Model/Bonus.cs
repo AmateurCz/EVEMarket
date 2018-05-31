@@ -15,6 +15,5 @@ namespace EVEMarket.Model
 
         [YamlMember(Alias = "bonusText")]
         public Text Text { get; set; }
-
     }
 }

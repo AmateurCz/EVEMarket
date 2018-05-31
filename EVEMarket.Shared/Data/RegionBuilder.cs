@@ -1,11 +1,10 @@
-﻿using EVEMarket.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using EVEMarket.Model;
 
 namespace EVEMarket.WPF.Data
 {
@@ -39,7 +38,6 @@ namespace EVEMarket.WPF.Data
                 var regionName = Path.GetFileName(regionPrefix);
                 region.Name = FormatName(regionName);
 
-
                 foreach (var constellationFile in FindFiles(regionPrefix, "constellation.staticdata", universeArchives))
                 {
                     Constellation con;
@@ -47,7 +45,6 @@ namespace EVEMarket.WPF.Data
                     {
                         con = StaticDataSerializer.Deserialize<Constellation>(stream);
                     }
-
 
                     con.RegionId = region.Id;
                     con.Region = region;
@@ -68,7 +65,6 @@ namespace EVEMarket.WPF.Data
                         system.Name = FormatName(systemName);
                         con.Systems.Add(system);
                     }
-
                 }
 
                 yield return region;
@@ -95,6 +91,7 @@ namespace EVEMarket.WPF.Data
         {
             return files.Where(x => x.EndsWith(fileName, StringComparison.InvariantCultureIgnoreCase));
         }
+
         private static IEnumerable<string> FindFiles(string prefix, string fileName, IEnumerable<string> files)
         {
             return files.Where(x => x.StartsWith(prefix, StringComparison.InvariantCultureIgnoreCase) && x.EndsWith(fileName, StringComparison.InvariantCultureIgnoreCase));

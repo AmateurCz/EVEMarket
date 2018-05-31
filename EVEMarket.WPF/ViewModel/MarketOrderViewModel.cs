@@ -8,7 +8,7 @@ namespace EVEMarket.WPF.ViewModel
         private readonly MarketOrder _model;
 
         public string Location { get; }
-               
+
         public double Price => _model.Price;
 
         public string Volume => $"{_model.VolumeRemain}/{_model.VolumeTotal}";

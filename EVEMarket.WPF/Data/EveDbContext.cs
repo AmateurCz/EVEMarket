@@ -7,6 +7,7 @@ namespace EVEMarket.WPF.Data
     {
         protected string ConnectionString => $"DataSource={Properties.Settings.Default.StaticDataDBLocation};"
 
+
         public DbSet<MarketGroup> MarketGroups { get; set; }
 
         public DbSet<Type> Types { get; set; }
@@ -17,7 +18,7 @@ namespace EVEMarket.WPF.Data
 
         public DbSet<SolarSystem> SolarSystems { get; set; }
 
-        public DbSet<UniqueName> UniqueNames { get; set; }        
+        public DbSet<UniqueName> UniqueNames { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

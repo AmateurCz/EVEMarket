@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Windows.Input;
 using CommonServiceLocator;
@@ -55,13 +54,13 @@ namespace EVEMarket.WPF.ViewModel
 
                 var locationIds = orders.Select(x => x.LocationId).Distinct().ToList();
 
-                var names = await staticData.UniqueNames.Where(x => locationIds.Contains(x.Id)).ToDictionaryAsync(x=> x.Id);
+                var names = await staticData.UniqueNames.Where(x => locationIds.Contains(x.Id)).ToDictionaryAsync(x => x.Id);
 
                 SellOrders.Clear();
                 foreach (var order in orders)
                 {
                     string name = string.Empty;
-                    if(names.TryGetValue(order.LocationId, out var uniqueName))
+                    if (names.TryGetValue(order.LocationId, out var uniqueName))
                     {
                         name = uniqueName.ItemName;
                     }

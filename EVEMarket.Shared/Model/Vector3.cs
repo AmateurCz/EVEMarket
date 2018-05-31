@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EVEMarket.Model
+﻿namespace EVEMarket.Model
 {
     public class Vector3
     {

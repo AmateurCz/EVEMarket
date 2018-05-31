@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using YamlDotNet.Serialization;
@@ -21,7 +20,7 @@ namespace EVEMarket.Model
 
         [Column("regionName")]
         public string Name { get; set; }
-        
+
         [Column("descriptionID")]
         [YamlMember(Alias = "descriptionID")]
         public int? DescriptionId { get; set; }
@@ -45,7 +44,7 @@ namespace EVEMarket.Model
         [NotMapped]
         [YamlMember(Alias = "min")]
         public Vector3 Min { get; set; }
-        
+
         [NotMapped]
         [YamlMember(Alias = "max")]
         public Vector3 Max { get; set; }

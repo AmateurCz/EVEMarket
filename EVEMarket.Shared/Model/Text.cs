@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Globalization;
+﻿using System.Globalization;
+using Newtonsoft.Json;
 using YamlDotNet.Serialization;
 
 namespace EVEMarket.Model
@@ -39,23 +39,30 @@ namespace EVEMarket.Model
         public string Zh { get; set; } = string.Empty;
 
         public override string ToString()
-        {            
+        {
             switch (CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToLower())
             {
                 case "de":
                     return De;
+
                 case "fr":
                     return Fr;
+
                 case "ja":
                     return Ja;
+
                 case "es":
                     return Es;
+
                 case "it":
                     return It;
+
                 case "ru":
                     return Ru;
+
                 case "zh":
                     return Zh;
+
                 case "en":
                 default:
                     return En;
