@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using EVEMarket.Model;
 using EveType = EVEMarket.Model.Type;
 
@@ -12,7 +9,7 @@ namespace EVEMarket.DataProviders
         IQueryable<Region> Regions { get; }
 
         IQueryable<MarketGroup> MarketGroups { get; }
-        
+
         IQueryable<EveType> Types { get; }
 
         IQueryable<Constellation> Constellations { get; }

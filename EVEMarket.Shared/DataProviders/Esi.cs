@@ -18,7 +18,7 @@ namespace EVEMarket.DataProviders
         {
             _client = new HttpClient() { BaseAddress = new Uri(EsiUrl) };
         }
-                
+
         #region Market
 
         public Task<List<MarketOrder>> GetSellOrders(int regionId, int typeId, CancellationToken cancellationToken)
@@ -35,7 +35,7 @@ namespace EVEMarket.DataProviders
                 cancellationToken);
         }
 
-        #endregion
+        #endregion Market
 
         protected async Task<T> GetData<T>(string requestUri, CancellationToken cancellationToken)
         {

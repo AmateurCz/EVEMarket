@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using CommonServiceLocator;
+using EVEMarket.DataProviders;
 using EVEMarket.Model;
 using GalaSoft.MvvmLight;
-using EVEMarket.DataProviders;
-using CommonServiceLocator;
-using System;
 
 namespace EVEMarket.WPF.ViewModel
 {

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 using YamlDotNet.Serialization;
 
 namespace EVEMarket.Model
@@ -33,6 +31,5 @@ namespace EVEMarket.Model
 
         [Column("security")]
         public float Security { get; set; }
-
     }
 }

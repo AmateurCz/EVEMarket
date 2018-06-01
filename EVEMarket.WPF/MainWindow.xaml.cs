@@ -1,10 +1,6 @@
-﻿using EVEMarket.WPF.Data;
-using EVEMarket.WPF.ViewModel;
-using System;
-using System.IO;
-using System.IO.Compression;
-using System.Linq;
+﻿using System;
 using System.Windows;
+using EVEMarket.WPF.ViewModel;
 
 namespace EVEMarket.WPF
 {

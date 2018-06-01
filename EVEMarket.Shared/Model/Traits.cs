@@ -10,7 +10,7 @@ namespace EVEMarket.Model
 
         [YamlMember(Alias = "miscBonuses")]
         public virtual List<Bonus> MiscBonuses { get; set; } = new List<Bonus>();
-        
+
         [YamlMember(Alias = "types")]
         public virtual Dictionary<int, List<Bonus>> Types { get; set; } = new Dictionary<int, List<Bonus>>();
     }

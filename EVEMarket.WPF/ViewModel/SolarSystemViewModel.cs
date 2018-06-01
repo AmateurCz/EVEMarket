@@ -11,7 +11,7 @@ namespace EVEMarket.WPF.ViewModel
 
         public SolarSystemViewModel(SolarSystem model)
         {
-            _model = model ?? throw new ArgumentNullException(nameof(model)); 
+            _model = model ?? throw new ArgumentNullException(nameof(model));
         }
     }
 }

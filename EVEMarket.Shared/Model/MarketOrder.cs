@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 
 namespace EVEMarket.Model
@@ -12,7 +10,6 @@ namespace EVEMarket.Model
 
         [JsonProperty("issued")]
         public DateTime Issued { get; set; }
-
 
         [JsonProperty("system_id")]
         public int SystemId { get; set; }

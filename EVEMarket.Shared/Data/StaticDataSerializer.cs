@@ -9,11 +9,11 @@ namespace EVEMarket.WPF.Data
         public static T Deserialize<T>(Stream stream) where T : class
         {
             var deserializer = new DeserializerBuilder()
-                                     .WithNamingConvention(new CamelCaseNamingConvention())  
+                                     .WithNamingConvention(new CamelCaseNamingConvention())
                                      .WithNodeDeserializer(new VectorDeserializer())
                                      .Build();
             StreamReader reader = new StreamReader(stream);
             return deserializer.Deserialize<T>(reader);
-        } 
+        }
     }
 }
