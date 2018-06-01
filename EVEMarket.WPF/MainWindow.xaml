@@ -5,6 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:EVEMarket.WPF.ViewModel"
+    xmlns:converters="clr-namespace:EVEMarket.WPF.Converters"
+    xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
     Title="MainWindow"
     Width="800"
     Height="600"
@@ -83,6 +85,12 @@
 
             <ContentControl Grid.Column="2" Content="{Binding SelectedItem, ElementName=MarketTree, Mode=OneWay}">
                 <ContentControl.Resources>
+                    <converters:NumberFormater x:Key="PriceFormater">
+                        <converters:NumberFormater.NumberFormat>
+                            <globalization:NumberFormatInfo NumberDecimalDigits="2" NumberGroupSeparator=" "/>
+                        </converters:NumberFormater.NumberFormat>
+                    </converters:NumberFormater>
+                    
                     <DataTemplate DataType="{x:Type vm:MarketGroupViewModel}">
                         <Grid>
                             <TextBlock Text="{Binding Name}" />
@@ -93,7 +101,7 @@
                         <Grid Margin="2">
                             <Grid.Resources>
                                 <Style x:Key="DataGridSyle" TargetType="DataGrid">
-                                    <Setter Property="AutoGenerateColumns" Value="true" />
+                                    <Setter Property="AutoGenerateColumns" Value="false" />
                                     <Setter Property="VerticalGridLinesBrush" Value="DarkGray" />
                                     <Setter Property="HorizontalGridLinesBrush" Value="DarkGray" />
                                     <Setter Property="RowBackground" Value="WhiteSmoke" />
@@ -111,7 +119,14 @@
                             <DataGrid
                                 Grid.Row="1"
                                 ItemsSource="{Binding SellOrders}"
-                                Style="{StaticResource DataGridSyle}" />
+                                Style="{StaticResource DataGridSyle}" >
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Location" Binding="{Binding Location}"/>
+                                    <DataGridTextColumn Header="Price" Binding="{Binding Price, Converter={StaticResource PriceFormater}}" TextBlock.TextAlignment="Right" />
+                                    <DataGridTextColumn Header="Volume" Binding="{Binding Volume}"/>
+                                    <DataGridTextColumn Header="Ends in" Binding="{Binding EndsIn}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
 
                             <TextBlock Grid.Row="2" Text="Buy orders" />
                             <DataGrid

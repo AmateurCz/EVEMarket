@@ -5,7 +5,7 @@ namespace EVEMarket.WPF.Data
 {
     public class EveDbContext : DbContext
     {
-        protected string ConnectionString => $"DataSource={Properties.Settings.Default.StaticDataDBLocation};"
+        protected string ConnectionString => $"DataSource={Properties.Settings.Default.StaticDataDBLocation};";
 
         public DbSet<MarketGroup> MarketGroups { get; set; }
 

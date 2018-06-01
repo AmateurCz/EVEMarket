@@ -29,7 +29,7 @@ namespace EVEMarket.WPF.DataProviders
 
         public IQueryable<MarketGroup> MarketGroups => Context.MarketGroups;
 
-        public IQueryable<EveType> Types => Context.Types;
+        public IQueryable<EveType> Types => Context.Types.Where(x => x.Published);
 
         public IQueryable<Region> Regions => Context.Regions;
 

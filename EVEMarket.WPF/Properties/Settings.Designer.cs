@@ -25,7 +25,7 @@ namespace EVEMarket.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\kubatdav\\Downloads\\SDE\\EveStaticData.sqlite")]
+        [global::System.Configuration.DefaultSettingValueAttribute("F:\\Downloads\\EVE\\EveStaticData.sqlite")]
         public string StaticDataDBLocation {
             get {
                 return ((string)(this["StaticDataDBLocation"]));
