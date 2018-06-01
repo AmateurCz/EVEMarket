@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using CommonServiceLocator;
 using EVEMarket.DataProviders;
@@ -31,13 +32,13 @@ namespace EVEMarket.WPF.ViewModel
         public TypeViewModel(Model.Type model)
         {
             _model = model ?? throw new ArgumentNullException(nameof(model));
-            RefreshData = new RelayCommand(RefreshOrders);
+            RefreshData = new RelayCommand(RefreshOrdersAsync);
 
             SellOrders = new ObservableCollection<MarketOrderViewModel>();
             BuyOrders = new ObservableCollection<MarketOrderViewModel>();
         }
 
-        private async void RefreshOrders()
+        private async Task RefreshOrdersAsync()
         {
             var mainVm = ServiceLocator.Current.GetInstance<MainViewModel>();
             var regionId = mainVm.SelectedRegion?.Id;

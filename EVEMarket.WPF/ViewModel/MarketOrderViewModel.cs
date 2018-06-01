@@ -20,7 +20,7 @@ namespace EVEMarket.WPF.ViewModel
 
         public DateTime EndsAt => _model.Issued.ToLocalTime() + TimeSpan.FromDays(Duration);
 
-        public int EndsIn =>  (int)Math.Ceiling((TimeSpan.FromDays(Duration) - (DateTime.Now - _model.Issued.ToLocalTime())).TotalDays);
+        public int EndsIn =>  (int)Math.Floor((TimeSpan.FromDays(Duration) - (DateTime.Now - _model.Issued.ToLocalTime())).TotalDays);
 
         public MarketOrderViewModel(MarketOrder model, string locationName)
         {
