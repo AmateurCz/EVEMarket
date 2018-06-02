@@ -1,6 +1,6 @@
 ﻿using System.Windows;
-using EVEMarket.DataProviders;
-using EVEMarket.WPF.DataProviders;
+using EVEMarket.Data.Providers;
+using EVEMarket.WPF.Data.Providers;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace EVEMarket.WPF

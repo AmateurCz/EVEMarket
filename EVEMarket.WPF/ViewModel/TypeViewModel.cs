@@ -4,9 +4,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using CommonServiceLocator;
-using EVEMarket.DataProviders;
+using EVEMarket.Data.Providers;
 using EVEMarket.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -32,10 +33,18 @@ namespace EVEMarket.WPF.ViewModel
         public TypeViewModel(Model.Type model)
         {
             _model = model ?? throw new ArgumentNullException(nameof(model));
-            RefreshData = new RelayCommand(RefreshOrdersAsync);
+            RefreshData = new RelayCommand(() => RefreshOrdersAsync().ContinueWith(HandleTask));
 
             SellOrders = new ObservableCollection<MarketOrderViewModel>();
             BuyOrders = new ObservableCollection<MarketOrderViewModel>();
+        }
+
+        private void HandleTask(Task t)
+        {
+            if (t.IsFaulted)
+            {
+                MessageBox.Show(t.Exception.Message ,"Async task failed");
+            }
         }
 
         private async Task RefreshOrdersAsync()

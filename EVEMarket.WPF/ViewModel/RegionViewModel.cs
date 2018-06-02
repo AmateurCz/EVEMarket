@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using CommonServiceLocator;
-using EVEMarket.DataProviders;
+using EVEMarket.Data.Providers;
 using EVEMarket.Model;
 using GalaSoft.MvvmLight;
 

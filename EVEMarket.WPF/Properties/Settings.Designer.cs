@@ -34,5 +34,17 @@ namespace EVEMarket.WPF.Properties {
                 this["StaticDataDBLocation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://esi.evetech.net/latest")]
+        public string EsiUrl {
+            get {
+                return ((string)(this["EsiUrl"]));
+            }
+            set {
+                this["EsiUrl"] = value;
+            }
+        }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using CommonServiceLocator;
-using EVEMarket.DataProviders;
+using EVEMarket.Data.Providers;
 using GalaSoft.MvvmLight;
 using Microsoft.EntityFrameworkCore;
 

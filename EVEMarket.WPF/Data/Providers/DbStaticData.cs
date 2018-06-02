@@ -1,10 +1,9 @@
 ﻿using System.Linq;
-using EVEMarket.DataProviders;
+using EVEMarket.Data.Providers;
 using EVEMarket.Model;
-using EVEMarket.WPF.Data;
 using EveType = EVEMarket.Model.Type;
 
-namespace EVEMarket.WPF.DataProviders
+namespace EVEMarket.WPF.Data.Providers
 {
     internal class DbStaticData : IStaticData
     {
