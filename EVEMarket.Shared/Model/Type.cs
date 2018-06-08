@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace EVEMarket.Model
 {
     [Table("invTypes")]
@@ -12,7 +11,7 @@ namespace EVEMarket.Model
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Column("typeID")]
         public int Id { get; set; }
-      
+
         //[ForeignKey("Group")]
         [Column("groupID")]
         public int? GroupId { get; set; }
@@ -85,7 +84,6 @@ namespace EVEMarket.Model
 
         [Column("published")]
         public bool Published { get; set; }
-        
 
         [Column("sofMaterialSetID")]
         public int? SofMaterialSetId { get; set; }

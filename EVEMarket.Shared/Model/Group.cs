@@ -27,7 +27,7 @@ namespace EVEMarket.Model
         [JsonProperty("fittableNonSingleton")]
         public bool FittableNonSingleton { get; set; }
 
-        [JsonProperty("name")]        
+        [JsonProperty("name")]
         public Text Name { get; set; }
 
         [JsonProperty("published")]

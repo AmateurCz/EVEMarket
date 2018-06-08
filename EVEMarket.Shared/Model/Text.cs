@@ -1,7 +1,6 @@
 ﻿using System.Globalization;
 using Newtonsoft.Json;
 
-
 namespace EVEMarket.Model
 {
     public class Text

@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace EVEMarket.Model
 {
     [Table("invMarketGroups")]
@@ -12,7 +11,7 @@ namespace EVEMarket.Model
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Column("marketGroupId")]
         public int Id { get; set; }
-        
+
         [Column("marketGroupName")]
         public string Name { get; set; }
 

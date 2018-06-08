@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace EVEMarket.WPF.Converters
@@ -29,7 +25,7 @@ namespace EVEMarket.WPF.Converters
         {
             if (value is string str)
             {
-                if(targetType == typeof(double))
+                if (targetType == typeof(double))
                 {
                     return double.Parse(str, NumberFormat);
                 }

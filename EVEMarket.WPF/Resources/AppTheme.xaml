@@ -2,6 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:EVEMarket.WPF.Resources">
     <Style TargetType="{x:Type ComboBox}" x:Key="HelloCombo">
-        <Setter Property="Width" Value="250"/>
+        <Setter Property="Width" Value="250" />
     </Style>
 </ResourceDictionary>

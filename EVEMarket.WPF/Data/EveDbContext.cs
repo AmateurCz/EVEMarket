@@ -7,10 +7,11 @@ namespace EVEMarket.WPF.Data
     public class EveDbContext : DbContext
     {
         protected static string ConnectionString =>
-            new SQLiteConnectionStringBuilder() {
+            new SQLiteConnectionStringBuilder()
+            {
                 DataSource = Properties.Settings.Default.StaticDataDBLocation,
-                ForeignKeys = true }.ConnectionString;
-
+                ForeignKeys = true
+            }.ConnectionString;
 
         public EveDbContext() :
            base(new SQLiteConnection()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -11,7 +12,6 @@ using EVEMarket.Data.Providers;
 using EVEMarket.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using System.Data.Entity;
 using Newtonsoft.Json;
 
 namespace EVEMarket.WPF.ViewModel
@@ -43,7 +43,7 @@ namespace EVEMarket.WPF.ViewModel
         {
             if (t.IsFaulted)
             {
-                MessageBox.Show(t.Exception.Message ,"Async task failed");
+                MessageBox.Show(t.Exception.Message, "Async task failed");
             }
         }
 
