@@ -9,7 +9,7 @@ using EVEMarket.DataProviders;
 using EVEMarket.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 using Newtonsoft.Json;
 
 namespace EVEMarket.WPF.ViewModel

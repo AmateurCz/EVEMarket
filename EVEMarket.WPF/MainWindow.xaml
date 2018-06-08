@@ -10,6 +10,9 @@
     Height="600"
     DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
     mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary Source="pack://application:,,,/EVEMarket.WPF;component/Resources/AppTheme.xaml"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -24,6 +27,7 @@
             <ComboBox
                 MinWidth="50"
                 Margin="5"
+                Style="{StaticResource HelloCombo}"
                 DisplayMemberPath="Name"
                 ItemsSource="{Binding Regions}"
                 SelectedItem="{Binding SelectedRegion}" />

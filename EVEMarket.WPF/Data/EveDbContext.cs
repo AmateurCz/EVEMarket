@@ -1,12 +1,24 @@
-﻿using EVEMarket.Model;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Data.Entity;
+using System.Data.SQLite;
+using EVEMarket.Model;
 
 namespace EVEMarket.WPF.Data
 {
     public class EveDbContext : DbContext
     {
-        protected string ConnectionString => $"DataSource={Properties.Settings.Default.StaticDataDBLocation};"
+        protected static string ConnectionString =>
+            new SQLiteConnectionStringBuilder() {
+                DataSource = $"DataSource={Properties.Settings.Default.StaticDataDBLocation};",
+                ForeignKeys = true }.ConnectionString;
 
+
+        public EveDbContext() :
+           base(new SQLiteConnection()
+           {
+               ConnectionString = ConnectionString
+           }, true)
+        {
+        }
 
         public DbSet<MarketGroup> MarketGroups { get; set; }
 
@@ -19,10 +31,5 @@ namespace EVEMarket.WPF.Data
         public DbSet<SolarSystem> SolarSystems { get; set; }
 
         public DbSet<UniqueName> UniqueNames { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite(ConnectionString);
-        }
     }
 }
