@@ -1,10 +1,9 @@
 ﻿using System.Linq;
-using EVEMarket.DataProviders;
+using EVEMarket.Data.Providers;
 using EVEMarket.Model;
-using EVEMarket.WPF.Data;
 using EveType = EVEMarket.Model.Type;
 
-namespace EVEMarket.WPF.DataProviders
+namespace EVEMarket.WPF.Data.Providers
 {
     internal class DbStaticData : IStaticData
     {
@@ -24,7 +23,7 @@ namespace EVEMarket.WPF.DataProviders
 
         public IQueryable<MarketGroup> MarketGroups => Context.MarketGroups;
 
-        public IQueryable<EveType> Types => Context.Types;
+        public IQueryable<EveType> Types => Context.Types.Where(x => x.Published);
 
         public IQueryable<Region> Regions => Context.Regions;
 

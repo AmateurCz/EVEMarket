@@ -2,7 +2,7 @@
 using EVEMarket.Model;
 using EveType = EVEMarket.Model.Type;
 
-namespace EVEMarket.DataProviders
+namespace EVEMarket.Data.Providers
 {
     public interface IStaticData
     {

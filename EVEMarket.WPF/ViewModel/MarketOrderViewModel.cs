@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using EVEMarket.Model;
 
 namespace EVEMarket.WPF.ViewModel
@@ -15,7 +16,11 @@ namespace EVEMarket.WPF.ViewModel
 
         public int Duration => _model.Duration;
 
-        public DateTime Issued => _model.Issued;
+        public DateTime Issued => _model.Issued.ToLocalTime();
+
+        public DateTime EndsAt => _model.Issued.ToLocalTime() + TimeSpan.FromDays(Duration);
+
+        public int EndsIn =>  (int)Math.Floor((TimeSpan.FromDays(Duration) - (DateTime.Now - _model.Issued.ToLocalTime())).TotalDays);
 
         public MarketOrderViewModel(MarketOrder model, string locationName)
         {

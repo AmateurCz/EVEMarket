@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using CommonServiceLocator;
-using EVEMarket.DataProviders;
+using EVEMarket.Data.Providers;
 using EVEMarket.Model;
 using GalaSoft.MvvmLight;
 
@@ -9,7 +9,7 @@ namespace EVEMarket.WPF.ViewModel
 {
     public class ConstellationViewModel : ViewModelBase
     {
-        private Constellation _model;
+        private readonly Constellation _model;
         private ObservableCollection<SolarSystemViewModel> _solarSystems;
         private SolarSystemViewModel _selectedSolarSystem;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using YamlDotNet.Serialization;
+
 
 namespace EVEMarket.Model
 {
@@ -10,7 +10,6 @@ namespace EVEMarket.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        [YamlMember(Alias = "solarSystemID")]
         [Column("solarSystemID")]
         public int Id { get; set; }
 

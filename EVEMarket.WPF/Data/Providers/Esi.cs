@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using EVEMarket.Model;
 using Newtonsoft.Json;
 
-namespace EVEMarket.DataProviders
+namespace EVEMarket.WPF.Data.Providers
 {
     public class Esi
     {
-        public const string EsiUrl = "https://esi.evetech.net/latest";
+        public string EsiUrl => Properties.Settings.Default.EsiUrl;
 
-        private HttpClient _client;
+        private readonly HttpClient _client;
 
         public Esi()
         {

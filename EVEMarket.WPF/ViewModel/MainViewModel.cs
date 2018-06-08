@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using CommonServiceLocator;
-using EVEMarket.DataProviders;
+using EVEMarket.Data.Providers;
 using GalaSoft.MvvmLight;
 
 namespace EVEMarket.WPF.ViewModel
