@@ -8,7 +8,7 @@ namespace EVEMarket.WPF.Data
     {
         protected static string ConnectionString =>
             new SQLiteConnectionStringBuilder() {
-                DataSource = $"DataSource={Properties.Settings.Default.StaticDataDBLocation};",
+                DataSource = Properties.Settings.Default.StaticDataDBLocation,
                 ForeignKeys = true }.ConnectionString;
 
 

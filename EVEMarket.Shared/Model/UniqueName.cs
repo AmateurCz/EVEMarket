@@ -16,6 +16,6 @@ namespace EVEMarket.Model
         public string ItemName { get; set; }
 
         [Column("groupID")]
-        public string GroupId { get; set; }
+        public long GroupId { get; set; }
     }
 }

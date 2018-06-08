@@ -77,7 +77,7 @@ namespace EVEMarket.Model
 
         public Icon Icon { get; set; }
 
-        [ForeignKey("graphic")]
+        [ForeignKey("Graphic")]
         [Column("graphicID")]
         public int? GraphicId { get; set; }
 
