@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace EVEMarket.Model
 {
     [Table("mapConstellations")]
@@ -18,7 +17,7 @@ namespace EVEMarket.Model
         public int RegionId { get; set; }
 
         public Region Region { get; set; }
-        
+
         [Column("constellationName")]
         public string Name { get; set; }
 
@@ -29,7 +28,7 @@ namespace EVEMarket.Model
         public int? WormholeClassId { get; set; }
 
         public int? FactionId { get; set; }
-       
+
         public virtual ICollection<SolarSystem> Systems { get; set; } = new List<SolarSystem>();
     }
 }

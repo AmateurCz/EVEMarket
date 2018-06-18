@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -8,7 +9,6 @@ using CommonServiceLocator;
 using EVEMarket.Data.Providers;
 using EVEMarket.Model;
 using GalaSoft.MvvmLight;
-using Microsoft.EntityFrameworkCore;
 
 namespace EVEMarket.WPF.ViewModel
 {

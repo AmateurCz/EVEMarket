@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace EVEMarket.Model
 {
     [Table("invUniqueNames")]
@@ -11,11 +10,11 @@ namespace EVEMarket.Model
         [Column("itemID")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
-        
+
         [Column("itemName")]
         public string ItemName { get; set; }
 
         [Column("groupID")]
-        public string GroupId { get; set; }
+        public long GroupId { get; set; }
     }
 }

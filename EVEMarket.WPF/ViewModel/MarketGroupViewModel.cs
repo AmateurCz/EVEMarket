@@ -16,7 +16,6 @@ namespace EVEMarket.WPF.ViewModel
         private ReadOnlyCollection<MarketGroupViewModel> _childGroups;
         private ReadOnlyCollection<object> _childItems;
 
-
         public ReadOnlyCollection<TypeViewModel> ChildTypes
         {
             get

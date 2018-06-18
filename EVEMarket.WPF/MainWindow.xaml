@@ -12,6 +12,9 @@
     Height="600"
     DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
     mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary Source="pack://application:,,,/EVEMarket.WPF;component/Resources/AppTheme.xaml" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -28,7 +31,8 @@
                 Margin="5"
                 DisplayMemberPath="Name"
                 ItemsSource="{Binding Regions}"
-                SelectedItem="{Binding SelectedRegion}" />
+                SelectedItem="{Binding SelectedRegion}"
+                Style="{StaticResource HelloCombo}" />
 
             <TextBlock
                 Margin="10,0,0,0"
@@ -119,7 +123,7 @@
                                     <Setter Property="VerticalGridLinesBrush" Value="DarkGray" />
                                     <Setter Property="HorizontalGridLinesBrush" Value="DarkGray" />
                                     <Setter Property="RowBackground" Value="WhiteSmoke" />
-                                    <Setter Property="AlternatingRowBackground" Value="LightBlue" />
+                                    <Setter Property="AlternatingRowBackground" Value="WhiteSmoke" />
                                 </Style>
                             </Grid.Resources>
                             <Grid.RowDefinitions>
