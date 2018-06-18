@@ -13,7 +13,7 @@ namespace EVEMarket.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            SimpleIoc.Default.Register<IStaticData, DbStaticData>();
+            SimpleIoc.Default.Register<IStaticData, StaticDb>();
         }
     }
 }

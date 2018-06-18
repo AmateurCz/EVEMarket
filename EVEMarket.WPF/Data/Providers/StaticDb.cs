@@ -16,9 +16,17 @@ namespace EVEMarket.WPF.Data.Providers
                 if (_context == null)
                 {
                     _context = new EveDbContext();
+                    _context.Configuration.LazyLoadingEnabled = false;
+                    _context.Configuration.AutoDetectChangesEnabled = false;
+                    _context.Database.Log = WriteLog;
                 }
                 return _context;
             }
+        }
+
+        private void WriteLog(string log)
+        {
+            DavesToolkit.Logging.LogPump.Info(log, nameof(StaticDb));
         }
 
         public IQueryable<MarketGroup> MarketGroups => Context.MarketGroups;

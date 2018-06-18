@@ -27,4 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Type.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Vector3.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Logging\" />
+  </ItemGroup>
 </Project>
