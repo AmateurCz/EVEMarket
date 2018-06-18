@@ -30,6 +30,8 @@ namespace EVEMarket.Model
 
         public virtual MarketGroup ParentMarketGroup { get; set; }
 
-        public virtual List<MarketGroup> Children { get; set; } = new List<MarketGroup>();
+        public virtual List<MarketGroup> ChildMarketGroups { get; set; } = new List<MarketGroup>();
+
+        public virtual List<Type> ChildTypes { get; set; } = new List<Type>();
     }
 }

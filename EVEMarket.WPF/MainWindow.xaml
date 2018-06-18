@@ -122,8 +122,9 @@
                                     <Setter Property="AutoGenerateColumns" Value="false" />
                                     <Setter Property="VerticalGridLinesBrush" Value="DarkGray" />
                                     <Setter Property="HorizontalGridLinesBrush" Value="DarkGray" />
-                                    <Setter Property="RowBackground" Value="WhiteSmoke" />
+                                    <Setter Property="RowBackground" Value="Transparent" />
                                     <Setter Property="AlternatingRowBackground" Value="WhiteSmoke" />
+                                    <Setter Property="AlternationCount" Value="2" />
                                 </Style>
                             </Grid.Resources>
                             <Grid.RowDefinitions>
@@ -164,6 +165,7 @@
                                 Style="{StaticResource DataGridSyle}">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Binding="{Binding Location}" Header="Location" />
+
                                     <DataGridTextColumn
                                         Binding="{Binding Price, Converter={StaticResource PriceFormater}}"
                                         ElementStyle="{StaticResource RightAlignedTextColumn}"

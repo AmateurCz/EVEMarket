@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using CommonServiceLocator;
@@ -12,58 +13,18 @@ namespace EVEMarket.WPF.ViewModel
     {
         private readonly MarketGroup _model;
 
-        private ReadOnlyCollection<TypeViewModel> _childTypes;
-        private ReadOnlyCollection<MarketGroupViewModel> _childGroups;
-        private ReadOnlyCollection<object> _childItems;
-
-        public ReadOnlyCollection<TypeViewModel> ChildTypes
-        {
-            get
-            {
-                if (_childTypes == null)
-                {
-                    var staticData = ServiceLocator.Current.GetInstance<IStaticData>();
-                    var types = staticData.Types.Where(x => x.MarketGroupId == _model.Id).ToList();
-                    _childTypes = new ReadOnlyCollection<TypeViewModel>(types.Select(x => new TypeViewModel(x)).ToList());
-                }
-
-                return _childTypes;
-            }
-        }
-
-        public ReadOnlyCollection<MarketGroupViewModel> ChildGroups
-        {
-            get
-            {
-                if (_childGroups == null)
-                {
-                    var staticData = ServiceLocator.Current.GetInstance<IStaticData>();
-                    var types = staticData.MarketGroups.Where(x => x.ParentMarketGroupId == _model.Id).ToList();
-                    _childGroups = new ReadOnlyCollection<MarketGroupViewModel>(types.Select(x => new MarketGroupViewModel(x)).ToList());
-                }
-
-                return _childGroups;
-            }
-        }
-
-        public ReadOnlyCollection<object> ChildItems
-        {
-            get
-            {
-                if (_childItems == null)
-                {
-                    _childItems = new ReadOnlyCollection<object>(ChildGroups.Union<object>(ChildTypes).ToList());
-                }
-
-                return _childItems;
-            }
-        }
+        public ReadOnlyCollection<object> ChildItems { get; }
 
         public string Name => _model.Name;
 
         public MarketGroupViewModel(MarketGroup model)
         {
             _model = model ?? throw new ArgumentNullException(nameof(model));
+
+            var types = model.ChildTypes.Select(t => new TypeViewModel(t));
+            var subGroups = model.ChildMarketGroups.Select(mGroup => new MarketGroupViewModel(mGroup));
+
+            ChildItems = new ReadOnlyCollection<object>(types.Union<object>(subGroups).ToList());
         }
     }
 }

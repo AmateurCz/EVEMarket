@@ -1,14 +1,13 @@
-using System;
+using CommonServiceLocator;
+using EVEMarket.Data.Providers;
+using EVEMarket.Model;
+using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using CommonServiceLocator;
-using EVEMarket.Data.Providers;
-using EVEMarket.Model;
-using GalaSoft.MvvmLight;
 
 namespace EVEMarket.WPF.ViewModel
 {
@@ -74,12 +73,11 @@ namespace EVEMarket.WPF.ViewModel
 
                 var mGroups = await staticData.MarketGroups.ToListAsync();
 
-
                 var mGroupIds = mGroups.Select(x => x.Id).ToList();
-                var types = await staticData.Types
-                    .Where(x => x.MarketGroupId.HasValue &&
+                var types = await staticData.Types.Where(x =>
+                                x.MarketGroupId.HasValue &&
                                 mGroupIds.Contains(x.MarketGroupId.Value))
-                    .ToListAsync();
+                            .ToListAsync();
 
                 this.marketGroupCache = mGroups;
                 this.typeCache = types;
@@ -97,11 +95,8 @@ namespace EVEMarket.WPF.ViewModel
             if (marketGroupCache == null || typeCache == null)
                 return;
 
-            var filter = this.ItemFilter;
-
-            var filteredTypes = string.IsNullOrEmpty(filter) ? typeCache : typeCache.Where(x => x.NameDb.Contains(filter)).ToList();
-            
-
+            MarketGroups = new ReadOnlyCollection<MarketGroupViewModel>(
+                marketGroupCache.Where(x => x.ParentMarketGroupId == null).Select(x => new MarketGroupViewModel(x)).ToList());
         }
 
         public override void RaisePropertyChanged([CallerMemberName] string propertyName = null)

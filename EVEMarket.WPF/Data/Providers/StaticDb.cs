@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
 using EVEMarket.Data.Providers;
 using EVEMarket.Model;
 using EveType = EVEMarket.Model.Type;
@@ -15,6 +16,7 @@ namespace EVEMarket.WPF.Data.Providers
             {
                 if (_context == null)
                 {
+                    Database.SetInitializer<EveDbContext>(null);
                     _context = new EveDbContext();
                     _context.Configuration.LazyLoadingEnabled = false;
                     _context.Configuration.AutoDetectChangesEnabled = false;
