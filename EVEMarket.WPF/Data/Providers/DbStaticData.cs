@@ -5,7 +5,7 @@ using EveType = EVEMarket.Model.Type;
 
 namespace EVEMarket.WPF.Data.Providers
 {
-    internal class DbStaticData : IStaticData
+    internal class StaticDb : IStaticData
     {
         private EveDbContext _context;
 

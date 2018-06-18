@@ -1,8 +1,12 @@
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using CommonServiceLocator;
 using EVEMarket.Data.Providers;
+using EVEMarket.Model;
 using GalaSoft.MvvmLight;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,8 +27,12 @@ namespace EVEMarket.WPF.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private RegionViewModel _selectedRegion;
-        private ObservableCollection<RegionViewModel> _regions;
-        private ObservableCollection<MarketGroupViewModel> _marketGroups;
+        private ReadOnlyCollection<RegionViewModel> _regions;
+        private ReadOnlyCollection<MarketGroupViewModel> _marketGroups;
+        private string _itemFilter;
+
+        private List<MarketGroup> marketGroupCache = null;
+        private List<Model.Type> typeCache = null;
 
         public RegionViewModel SelectedRegion
         {
@@ -32,13 +40,19 @@ namespace EVEMarket.WPF.ViewModel
             set => Set(ref _selectedRegion, value);
         }
 
-        public ObservableCollection<RegionViewModel> Regions
+        public ReadOnlyCollection<RegionViewModel> Regions
         {
             get => _regions;
             set => Set(ref _regions, value);
         }
 
-        public ObservableCollection<MarketGroupViewModel> MarketGroups
+        public string ItemFilter
+        {
+            get => _itemFilter;
+            set => Set(ref _itemFilter, value);
+        }
+
+        public ReadOnlyCollection<MarketGroupViewModel> MarketGroups
         {
             get => _marketGroups;
             set => Set(ref _marketGroups, value);
@@ -49,7 +63,7 @@ namespace EVEMarket.WPF.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            _regions = new ObservableCollection<RegionViewModel>();
+            _regions = new ReadOnlyCollection<RegionViewModel>(new List<RegionViewModel>());
         }
 
         internal async Task Initialize()
@@ -57,13 +71,45 @@ namespace EVEMarket.WPF.ViewModel
             if (!IsInDesignMode)
             {
                 var staticData = ServiceLocator.Current.GetInstance<IStaticData>();
-                var regions = await staticData.Regions.ToListAsync();
-                var mGroups = await staticData.MarketGroups.Where(x => x.ParentMarketGroupId == null).ToListAsync();
 
-                MarketGroups = new ObservableCollection<MarketGroupViewModel>(mGroups.Select(x => new MarketGroupViewModel(x)));
-                Regions = new ObservableCollection<RegionViewModel>(regions.Select(x => new RegionViewModel(x)));
+                var mGroups = await staticData.MarketGroups.ToListAsync();
+
+
+                var mGroupIds = mGroups.Select(x => x.Id).ToList();
+                var types = await staticData.Types
+                    .Where(x => x.MarketGroupId.HasValue &&
+                                mGroupIds.Contains(x.MarketGroupId.Value))
+                    .ToListAsync();
+
+                this.marketGroupCache = mGroups;
+                this.typeCache = types;
+
+                GenerateMarketTree();
+
+                var regions = await staticData.Regions.ToListAsync();
+                Regions = new ReadOnlyCollection<RegionViewModel>(regions.Select(x => new RegionViewModel(x)).ToList());
                 SelectedRegion = Regions.First();
             }
+        }
+
+        private void GenerateMarketTree()
+        {
+            if (marketGroupCache == null || typeCache == null)
+                return;
+
+            var filter = this.ItemFilter;
+
+            var filteredTypes = string.IsNullOrEmpty(filter) ? typeCache : typeCache.Where(x => x.NameDb.Contains(filter)).ToList();
+            
+
+        }
+
+        public override void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            if (propertyName == nameof(ItemFilter))
+                GenerateMarketTree();
+
+            base.RaisePropertyChanged(propertyName);
         }
     }
 }

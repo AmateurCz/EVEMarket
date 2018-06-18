@@ -13,7 +13,7 @@ namespace EVEMarket.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_e_sqlite3());
-            SimpleIoc.Default.Register<IStaticData, DbStaticData>();
+            SimpleIoc.Default.Register<IStaticData, StaticDb>();
 
             base.OnStartup(e);
         }
