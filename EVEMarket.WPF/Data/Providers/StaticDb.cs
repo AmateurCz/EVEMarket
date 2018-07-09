@@ -2,12 +2,14 @@
 using System.Linq;
 using EVEMarket.Data.Providers;
 using EVEMarket.Model;
+using NLog;
 using EveType = EVEMarket.Model.Type;
 
 namespace EVEMarket.WPF.Data.Providers
 {
     internal class StaticDb : IStaticData
     {
+        private readonly ILogger logger = LogManager.GetCurrentClassLogger();
         private EveDbContext _context;
 
         private EveDbContext Context
@@ -28,7 +30,7 @@ namespace EVEMarket.WPF.Data.Providers
 
         private void WriteLog(string log)
         {
-            DavesToolkit.Logging.LogPump.Info(log, nameof(StaticDb));
+            logger.Info(log);
         }
 
         public IQueryable<MarketGroup> MarketGroups => Context.MarketGroups;
