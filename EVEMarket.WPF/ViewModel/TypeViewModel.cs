@@ -60,7 +60,7 @@ namespace EVEMarket.WPF.ViewModel
 
         private async Task RefreshOrdersAsync()
         {
-            var mainVm = ServiceLocator.Current.GetInstance<MainViewModel>();
+            var mainVm = ServiceLocator.Current.GetInstance<MarketViewModel>();
             var regionId = mainVm.SelectedRegion?.Id;
 
             if (regionId.HasValue)

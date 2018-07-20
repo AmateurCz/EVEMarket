@@ -41,14 +41,14 @@ namespace EVEMarket.WPF.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<MarketViewModel>();
         }
 
-        public MainViewModel Main
+        public MarketViewModel Market
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
+                return ServiceLocator.Current.GetInstance<MarketViewModel>();
             }
         }
 
