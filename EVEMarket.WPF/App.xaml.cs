@@ -17,14 +17,14 @@ namespace EVEMarket.WPF
             base.OnStartup(e);
 
             var config = new NLog.Config.LoggingConfiguration();
+
             var fileLayout = Layout.FromString("${longdate}|${level}|${logger}| ${message}");
+            var fileLog = new FileTarget("FileLogger") { FileName = LoggingPath, Layout = fileLayout };
+            config.AddRule(LogLevel.Debug, LogLevel.Fatal, fileLog);
+
             var consoleLayout = Layout.FromString("${longdate} ${message}");
-
-            var logfile = new FileTarget("FileLogger") { FileName = LoggingPath, Layout = fileLayout };
             var logconsole = new DebuggerTarget("Debuger Logger") { Layout = consoleLayout };
-
-            config.AddRule(LogLevel.Info, LogLevel.Fatal, logconsole);
-            config.AddRule(LogLevel.Info, LogLevel.Fatal, logfile);
+            config.AddRule(LogLevel.Trace, LogLevel.Fatal, logconsole);
 
             LogManager.Configuration = config;
         }

@@ -15,7 +15,8 @@ namespace EVEMarket.WPF
 
         protected override void OnInitialized(EventArgs e)
         {
-            //NavigationFrame.Navigate(new MarketDetails());
+            NavigationFrame.Navigate(new MarketDetails());
+            base.OnInitialized(e);
         }
 
         private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)

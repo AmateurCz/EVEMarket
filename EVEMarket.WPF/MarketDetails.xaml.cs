@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Controls;
+using EVEMarket.WPF.Interfaces;
 
 namespace EVEMarket.WPF
 {
@@ -17,16 +18,12 @@ namespace EVEMarket.WPF
         {
             base.OnInitialized(e);
 
-            //this.IsEnabled = false;
+            this.IsEnabled = false;
 
-            //this.StatusText.Text = "Loading ...";
+            var vm = this.DataContext as VmWithInitialization;
+            await vm.InitializeAsync();
 
-            //var vm = this.DataContext as MainViewModel;
-            //await vm.Initialize();
-
-            //this.IsEnabled = true;
-
-            //this.StatusText.Text = "Ready";
+            this.IsEnabled = true;
         }
     }
 }

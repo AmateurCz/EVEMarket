@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using EVEMarket.Model;
@@ -18,9 +19,11 @@ namespace EVEMarket.WPF.ViewModel
             {
                 if (_constellations == null)
                 {
-                    var staticData = new Data.EveDbContext();
-                    var constellations = staticData.Constellations.Where(x => x.RegionId == _model.Id).ToList();
-
+                    List<Constellation> constellations;
+                    using (var staticData = new Data.EveDbContext())
+                    {
+                        constellations = staticData.Constellations.Where(x => x.RegionId == _model.Id).ToList();
+                    }
                     _constellations = new ObservableCollection<ConstellationViewModel>(constellations
                         .Select(x => new ConstellationViewModel(x))
                         .ToList());

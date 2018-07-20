@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using EVEMarket.Model;
+using EVEMarket.WPF.Interfaces;
 using GalaSoft.MvvmLight;
 
 namespace EVEMarket.WPF.ViewModel
@@ -21,7 +22,7 @@ namespace EVEMarket.WPF.ViewModel
     /// See http://www.galasoft.ch/mvvm
     /// </para>
     /// </summary>
-    public class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase, VmWithInitialization
     {
         private RegionViewModel _selectedRegion;
         private ReadOnlyCollection<RegionViewModel> _regions;
@@ -63,28 +64,29 @@ namespace EVEMarket.WPF.ViewModel
             _regions = new ReadOnlyCollection<RegionViewModel>(new List<RegionViewModel>());
         }
 
-        internal async Task Initialize()
+        public async Task InitializeAsync()
         {
             if (!IsInDesignMode)
             {
-                var staticData = new Data.EveDbContext();
+                using (var staticData = new Data.EveDbContext())
+                {
+                    var mGroups = await staticData.MarketGroups.ToListAsync();
 
-                var mGroups = await staticData.MarketGroups.ToListAsync();
+                    var mGroupIds = mGroups.Select(x => x.Id).ToList();
+                    var types = await staticData.Types.Where(x =>
+                                    x.Published &&
+                                    x.MarketGroupId.HasValue &&
+                                    mGroupIds.Contains(x.MarketGroupId.Value))
+                                .ToListAsync();
 
-                var mGroupIds = mGroups.Select(x => x.Id).ToList();
-                var types = await staticData.Types.Where(x =>
-                                x.Published &&
-                                x.MarketGroupId.HasValue &&
-                                mGroupIds.Contains(x.MarketGroupId.Value))
-                            .ToListAsync();
+                    var regions = await staticData.Regions.ToListAsync();
+                    Regions = new ReadOnlyCollection<RegionViewModel>(regions.Select(x => new RegionViewModel(x)).ToList());
 
-                this.marketGroupCache = mGroups;
-                this.typeCache = types;
+                    this.marketGroupCache = mGroups;
+                    this.typeCache = types;
+                }
 
                 GenerateMarketTree();
-
-                var regions = await staticData.Regions.ToListAsync();
-                Regions = new ReadOnlyCollection<RegionViewModel>(regions.Select(x => new RegionViewModel(x)).ToList());
                 SelectedRegion = Regions.First();
             }
         }

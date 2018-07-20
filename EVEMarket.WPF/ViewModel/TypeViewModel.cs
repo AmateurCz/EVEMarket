@@ -10,7 +10,6 @@ using System.Windows.Input;
 using CommonServiceLocator;
 using EVE.Esi;
 using EVE.Esi.Model;
-using EVEMarket.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 
@@ -66,8 +65,6 @@ namespace EVEMarket.WPF.ViewModel
 
             if (regionId.HasValue)
             {
-                var staticData = new Data.EveDbContext();
-
                 var client = new Client(Properties.Settings.Default.EsiUrl);
                 var cancelationToken = new CancellationToken();
 
@@ -75,14 +72,19 @@ namespace EVEMarket.WPF.ViewModel
                 var buyOrders = await client.GetSellOrdersAsync(regionId.Value, this.Id, cancelationToken);
 
                 var locationIds = sellOrders.Concat(buyOrders).Select(x => x.LocationId).Distinct().ToList();
-                var names = await staticData.UniqueNames.Where(x => locationIds.Contains(x.Id)).ToDictionaryAsync(x => x.Id);
+
+                Dictionary<long, string> names;
+                using (var staticData = new Data.EveDbContext())
+                {
+                    names = await staticData.UniqueNames.Where(x => locationIds.Contains(x.Id)).ToDictionaryAsync(x => x.Id, x => x.Name);
+                }
 
                 SellOrders = CreateOrderVms(sellOrders, names);
                 BuyOrders = CreateOrderVms(buyOrders, names);
             }
         }
 
-        private ObservableCollection<MarketOrderViewModel> CreateOrderVms(List<MarketOrder> orders, Dictionary<long, UniqueName> names)
+        private ObservableCollection<MarketOrderViewModel> CreateOrderVms(List<MarketOrder> orders, Dictionary<long, string> names)
         {
             List<MarketOrderViewModel> vms = new List<MarketOrderViewModel>(orders.Count);
 
@@ -91,7 +93,7 @@ namespace EVEMarket.WPF.ViewModel
                 string name = string.Empty;
                 if (names.TryGetValue(order.LocationId, out var uniqueName))
                 {
-                    name = uniqueName.Name;
+                    name = uniqueName;
                 }
 
                 vms.Add(new MarketOrderViewModel(order, name));

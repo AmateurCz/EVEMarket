@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using EVEMarket.Model;
 using GalaSoft.MvvmLight;
@@ -19,8 +20,11 @@ namespace EVEMarket.WPF.ViewModel
             {
                 if (_solarSystems == null)
                 {
-                    var staticData = new Data.EveDbContext();
-                    var solarSystems = staticData.SolarSystems.Where(x => x.ConstellationId == _model.Id).ToList();
+                    List<SolarSystem> solarSystems;
+                    using (var staticData = new Data.EveDbContext())
+                    {
+                        solarSystems = staticData.SolarSystems.Where(x => x.ConstellationId == _model.Id).ToList();
+                    }
 
                     _solarSystems = new ObservableCollection<SolarSystemViewModel>(solarSystems.Select(x => new SolarSystemViewModel(x)));
                     _selectedSolarSystem = _solarSystems.First();

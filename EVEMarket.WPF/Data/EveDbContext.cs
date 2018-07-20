@@ -16,6 +16,8 @@ namespace EVEMarket.WPF.Data
                 ForeignKeys = true
             }.ConnectionString;
 
+        static EveDbContext() => Database.SetInitializer(new NullDatabaseInitializer<EveDbContext>());
+
         private readonly ILogger logger = LogManager.GetCurrentClassLogger();
 
         public DbSet<MarketGroup> MarketGroups { get; set; }
@@ -39,7 +41,7 @@ namespace EVEMarket.WPF.Data
         {
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.AutoDetectChangesEnabled = false;
-            this.Database.Log = log => logger.Info(log);
+            this.Database.Log = log => logger.Debug(log);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

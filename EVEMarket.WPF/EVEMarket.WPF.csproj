@@ -61,7 +61,7 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.5.6\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.5.7\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -95,6 +95,7 @@
     <Compile Include="Converters\NumberFormater.cs" />
     <Compile Include="Data\EveDbConfig.cs" />
     <Compile Include="Data\EveDbContext.cs" />
+    <Compile Include="Interfaces\VmWithInitialization.cs" />
     <Compile Include="MarketDetails.xaml.cs">
       <DependentUpon>MarketDetails.xaml</DependentUpon>
     </Compile>
@@ -159,9 +160,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\EVE.Esi\EVE.Esi.csproj">
       <Project>{96374B37-5737-491E-AEC1-731C8680682A}</Project>
