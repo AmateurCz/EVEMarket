@@ -154,7 +154,7 @@
                                     <DataGridTextColumn
                                         Binding="{Binding EndsIn}"
                                         ElementStyle="{StaticResource RightAlignedTextColumn}"
-                                        Header="Ends in [days]" />
+                                        Header="Days remaining" />
                                 </DataGrid.Columns>
                             </DataGrid>
 
@@ -179,7 +179,7 @@
                                     <DataGridTextColumn
                                         Binding="{Binding EndsIn}"
                                         ElementStyle="{StaticResource RightAlignedTextColumn}"
-                                        Header="Ends in [days]" />
+                                        Header="Days remaining" />
                                 </DataGrid.Columns>
                             </DataGrid>
 
