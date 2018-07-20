@@ -1,32 +1,31 @@
 ﻿using System.Globalization;
-using Newtonsoft.Json;
 
 namespace EVEMarket.Model
 {
     public class Text
     {
-        [JsonProperty("de")]
+        //[JsonProperty("de")]
         public string De { get; set; } = string.Empty;
 
-        [JsonProperty("en")]
+        //[JsonProperty("en")]
         public string En { get; set; } = string.Empty;
 
-        [JsonProperty("fr")]
+        //[JsonProperty("fr")]
         public string Fr { get; set; } = string.Empty;
 
-        [JsonProperty("ja")]
+        //[JsonProperty("ja")]
         public string Ja { get; set; } = string.Empty;
 
-        [JsonProperty("es")]
+        //[JsonProperty("es")]
         public string Es { get; set; } = string.Empty;
 
-        [JsonProperty("it")]
+        //[JsonProperty("it")]
         public string It { get; set; } = string.Empty;
 
-        [JsonProperty("ru")]
+        //[JsonProperty("ru")]
         public string Ru { get; set; } = string.Empty;
 
-        [JsonProperty("zh")]
+        //[JsonProperty("zh")]
         public string Zh { get; set; } = string.Empty;
 
         public override string ToString()

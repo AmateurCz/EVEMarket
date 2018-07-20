@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using CommonServiceLocator;
-using EVEMarket.Data.Providers;
 using EVEMarket.Model;
 using GalaSoft.MvvmLight;
 
@@ -20,7 +18,7 @@ namespace EVEMarket.WPF.ViewModel
             {
                 if (_constellations == null)
                 {
-                    var staticData = ServiceLocator.Current.GetInstance<IStaticData>();
+                    var staticData = new Data.EveDbContext();
                     var constellations = staticData.Constellations.Where(x => x.RegionId == _model.Id).ToList();
 
                     _constellations = new ObservableCollection<ConstellationViewModel>(constellations

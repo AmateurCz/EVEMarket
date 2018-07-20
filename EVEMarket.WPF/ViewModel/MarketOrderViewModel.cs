@@ -1,5 +1,5 @@
 ﻿using System;
-using EVEMarket.Model;
+using EVE.Esi.Model;
 
 namespace EVEMarket.WPF.ViewModel
 {

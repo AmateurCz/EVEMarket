@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace EVEMarket.Model
+namespace EVE.Esi.Model
 {
     public class MarketOrder
     {

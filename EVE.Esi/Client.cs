@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using EVEMarket.Data.Providers;
-using EVEMarket.Model;
+using EVE.Esi.Model;
 using Newtonsoft.Json;
 
-namespace EVEMarket.WPF.Data.Providers
+namespace EVE.Esi
 {
-    public class Esi : IEsiData
+    public class Client
     {
-        public string EsiUrl => Properties.Settings.Default.EsiUrl;
-
         private readonly HttpClient _client;
 
-        public Esi()
+        public string EsiUrl { get; }
+
+        public Client(string esiUrl)
         {
+            EsiUrl = esiUrl;
             _client = new HttpClient() { BaseAddress = new Uri(EsiUrl) };
         }
 
@@ -38,7 +38,7 @@ namespace EVEMarket.WPF.Data.Providers
 
         public Task<List<Asset>> GetCharacterAssetsAsync(int characterId, CancellationToken cancellationToken)
         {
-            return GetData<List<Asset>>($"characters/{characterId}/assets/", cancellationToken); 
+            return GetData<List<Asset>>($"characters/{characterId}/assets/", cancellationToken);
         }
 
         #endregion Market

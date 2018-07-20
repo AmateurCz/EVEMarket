@@ -1,13 +1,11 @@
-using CommonServiceLocator;
-using EVEMarket.Data.Providers;
-using EVEMarket.Model;
-using GalaSoft.MvvmLight;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using EVEMarket.Model;
+using GalaSoft.MvvmLight;
 
 namespace EVEMarket.WPF.ViewModel
 {
@@ -69,7 +67,7 @@ namespace EVEMarket.WPF.ViewModel
         {
             if (!IsInDesignMode)
             {
-                var staticData = ServiceLocator.Current.GetInstance<IStaticData>();
+                var staticData = new Data.EveDbContext();
 
                 var mGroups = await staticData.MarketGroups.ToListAsync();
 

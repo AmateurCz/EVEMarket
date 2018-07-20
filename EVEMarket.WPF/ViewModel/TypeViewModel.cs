@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using CommonServiceLocator;
-using EVEMarket.Data.Providers;
-using EVEMarket.Model;
+using EVE.Esi.Model;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using Newtonsoft.Json;
@@ -54,7 +53,7 @@ namespace EVEMarket.WPF.ViewModel
 
             if (regionId.HasValue)
             {
-                var staticData = ServiceLocator.Current.GetInstance<IStaticData>();
+                var staticData = new Data.EveDbContext();
 
                 var client = new HttpClient();
                 var result = await client.GetAsync($"https://esi.evetech.net/latest/markets/{regionId}/orders/?datasource=tranquility&order_type=sell&type_id={this.Id}", HttpCompletionOption.ResponseContentRead);
@@ -72,7 +71,7 @@ namespace EVEMarket.WPF.ViewModel
                     string name = string.Empty;
                     if (names.TryGetValue(order.LocationId, out var uniqueName))
                     {
-                        name = uniqueName.ItemName;
+                        name = uniqueName.Name;
                     }
 
                     SellOrders.Add(new MarketOrderViewModel(order, name));
@@ -92,7 +91,7 @@ namespace EVEMarket.WPF.ViewModel
                     string name = string.Empty;
                     if (names.TryGetValue(order.LocationId, out var uniqueName))
                     {
-                        name = uniqueName.ItemName;
+                        name = uniqueName.Name;
                     }
 
                     BuyOrders.Add(new MarketOrderViewModel(order, name));

@@ -1,7 +1,4 @@
 ﻿using System.Windows;
-using EVEMarket.Data.Providers;
-using EVEMarket.WPF.Data.Providers;
-using GalaSoft.MvvmLight.Ioc;
 using NLog;
 using NLog.Layouts;
 using NLog.Targets;
@@ -30,8 +27,6 @@ namespace EVEMarket.WPF
             config.AddRule(LogLevel.Info, LogLevel.Fatal, logfile);
 
             LogManager.Configuration = config;
-
-            SimpleIoc.Default.Register<IStaticData, StaticDb>();
         }
     }
 }
