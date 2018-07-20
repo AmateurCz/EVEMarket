@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.Data.SQLite;
 using EVEMarket.Model;
+using NLog;
 using EveType = EVEMarket.Model.Type;
 
 namespace EVEMarket.WPF.Data
@@ -14,6 +15,8 @@ namespace EVEMarket.WPF.Data
                 DataSource = Properties.Settings.Default.StaticDataDBLocation,
                 ForeignKeys = true
             }.ConnectionString;
+
+        private readonly ILogger logger = LogManager.GetCurrentClassLogger();
 
         public DbSet<MarketGroup> MarketGroups { get; set; }
 
@@ -33,7 +36,11 @@ namespace EVEMarket.WPF.Data
 
         public EveDbContext() :
            base(new SQLiteConnection() { ConnectionString = ConnectionString }, true)
-        { }
+        {
+            this.Configuration.LazyLoadingEnabled = false;
+            this.Configuration.AutoDetectChangesEnabled = false;
+            this.Database.Log = log => logger.Info(log);
+        }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

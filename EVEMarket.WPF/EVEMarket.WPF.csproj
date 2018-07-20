@@ -92,7 +92,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ConsoleLogger.cs" />
     <Compile Include="Converters\NumberFormater.cs" />
     <Compile Include="Data\EveDbConfig.cs" />
     <Compile Include="Data\EveDbContext.cs" />

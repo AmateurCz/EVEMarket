@@ -73,6 +73,7 @@ namespace EVEMarket.WPF.ViewModel
 
                 var mGroupIds = mGroups.Select(x => x.Id).ToList();
                 var types = await staticData.Types.Where(x =>
+                                x.Published &&
                                 x.MarketGroupId.HasValue &&
                                 mGroupIds.Contains(x.MarketGroupId.Value))
                             .ToListAsync();

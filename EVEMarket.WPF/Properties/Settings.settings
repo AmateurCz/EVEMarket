@@ -2,11 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="EVEMarket.WPF.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="StaticDataDBLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">F:\Downloads\EVE\EveStaticData.sqlite</Value>
-    </Setting>
     <Setting Name="EsiUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">https://esi.evetech.net/latest</Value>
+      <Value Profile="(Default)">https://esi.evetech.net/latest/</Value>
+    </Setting>
+    <Setting Name="StaticDataDBLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\kubatdav\Downloads\SDE\EveStaticData.sqlite</Value>
     </Setting>
   </Settings>
 </SettingsFile>
