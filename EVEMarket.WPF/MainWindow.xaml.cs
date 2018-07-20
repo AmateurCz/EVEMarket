@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using EVEMarket.WPF.ViewModel;
 
 namespace EVEMarket.WPF
 {
@@ -14,22 +13,13 @@ namespace EVEMarket.WPF
             InitializeComponent();
         }
 
-        protected override async void OnInitialized(EventArgs e)
+        protected override void OnInitialized(EventArgs e)
         {
-            base.OnInitialized(e);
-            this.IsEnabled = false;
-            this.StatusText.Text = "Loading ...";
-
-            var vm = this.DataContext as MainViewModel;
-            await vm.Initialize();
-
-            this.IsEnabled = true;
-            this.StatusText.Text = "Ready";
+            //NavigationFrame.Navigate(new MarketDetails());
         }
 
         private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-
         }
     }
 }

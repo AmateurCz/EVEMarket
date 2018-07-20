@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EVEMarket.WPF", "EVEMarket.WPF\EVEMarket.WPF.csproj", "{3ACACE16-60DF-497C-B800-F5D998EE1B0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EVEMarket.DbModel", "EVEMarket.DbModel\EVEMarket.DbModel.csproj", "{2D63BDA5-B0CA-4184-B56B-46B82D7E94D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EVEMarket.DbModel", "EVEMarket.DbModel\EVEMarket.DbModel.csproj", "{2D63BDA5-B0CA-4184-B56B-46B82D7E94D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EVE.Esi", "EVE.Esi\EVE.Esi.csproj", "{96374B37-5737-491E-AEC1-731C8680682A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EVE.Esi", "EVE.Esi\EVE.Esi.csproj", "{96374B37-5737-491E-AEC1-731C8680682A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

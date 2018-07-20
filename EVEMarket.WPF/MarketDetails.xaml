@@ -1,0 +1,197 @@
+﻿<Page
+    x:Class="EVEMarket.WPF.MarketDetails"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:EVEMarket.WPF.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:EVEMarket.WPF.ViewModel"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+    <Page.Resources>
+        <ResourceDictionary Source="pack://application:,,,/EVEMarket.WPF;component/Resources/AppTheme.xaml" />
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <DockPanel LastChildFill="False">
+            <TextBlock
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Text="Region:" />
+            <ComboBox
+                MinWidth="50"
+                Margin="5"
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding Regions}"
+                SelectedItem="{Binding SelectedRegion}"
+                Style="{StaticResource HelloCombo}" />
+
+            <TextBlock
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Text="Constellation:" />
+            <ComboBox
+                MinWidth="50"
+                Margin="5"
+                DataContext="{Binding SelectedRegion}"
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding Constellations}"
+                SelectedItem="{Binding SelectedConstellation}" />
+
+            <TextBlock
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Text="Systems:" />
+            <ComboBox
+                MinWidth="50"
+                Margin="5"
+                DataContext="{Binding SelectedRegion.SelectedConstellation}"
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding SolarSystems}"
+                SelectedItem="{Binding SelectedSolarSystem}" />
+        </DockPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" MinWidth="200" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBox Text="{Binding ItemFilter}" />
+            <TreeView
+                x:Name="MarketTree"
+                Grid.Row="1"
+                HorizontalAlignment="Stretch"
+                ItemsSource="{Binding MarketGroups}">
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type vm:MarketGroupViewModel}" ItemsSource="{Binding ChildItems}">
+                        <TextBlock Text="{Binding Name}" />
+                    </HierarchicalDataTemplate>
+
+                    <HierarchicalDataTemplate DataType="{x:Type vm:TypeViewModel}">
+                        <TextBlock Text="{Binding Name}" />
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+            <GridSplitter
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Width="2"
+                VerticalAlignment="Stretch"
+                ResizeBehavior="PreviousAndNext"
+                ResizeDirection="Columns" />
+
+            <ContentControl
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Content="{Binding SelectedItem, ElementName=MarketTree, Mode=OneWay}">
+                <ContentControl.Resources>
+                    <converters:NumberFormater x:Key="PriceFormater">
+                        <converters:NumberFormater.NumberFormat>
+                            <globalization:NumberFormatInfo NumberDecimalDigits="2" NumberGroupSeparator=" " />
+                        </converters:NumberFormater.NumberFormat>
+                    </converters:NumberFormater>
+
+                    <Style x:Key="RightAlignedTextColumn" TargetType="{x:Type TextBlock}">
+                        <Setter Property="TextAlignment" Value="Right" />
+                    </Style>
+
+                    <DataTemplate DataType="{x:Type vm:MarketGroupViewModel}">
+                        <Grid>
+                            <TextBlock Text="{Binding Name}" />
+                        </Grid>
+                    </DataTemplate>
+
+                    <DataTemplate DataType="{x:Type vm:TypeViewModel}">
+                        <Grid Margin="2">
+                            <Grid.Resources>
+                                <Style x:Key="DataGridSyle" TargetType="DataGrid">
+                                    <Setter Property="AutoGenerateColumns" Value="false" />
+                                    <Setter Property="VerticalGridLinesBrush" Value="DarkGray" />
+                                    <Setter Property="HorizontalGridLinesBrush" Value="DarkGray" />
+                                    <Setter Property="RowBackground" Value="Transparent" />
+                                    <Setter Property="AlternatingRowBackground" Value="WhiteSmoke" />
+                                    <Setter Property="AlternationCount" Value="2" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="Sell orders" />
+                            <DataGrid
+                                Grid.Row="1"
+                                ItemsSource="{Binding SellOrders}"
+                                Style="{StaticResource DataGridSyle}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Location}" Header="Location" />
+                                    <DataGridTextColumn
+                                        Binding="{Binding Price, Converter={StaticResource PriceFormater}}"
+                                        ElementStyle="{StaticResource RightAlignedTextColumn}"
+                                        Header="Price" />
+
+                                    <DataGridTextColumn
+                                        Binding="{Binding Volume}"
+                                        ElementStyle="{StaticResource RightAlignedTextColumn}"
+                                        Header="Volume" />
+
+                                    <DataGridTextColumn
+                                        Binding="{Binding EndsIn}"
+                                        ElementStyle="{StaticResource RightAlignedTextColumn}"
+                                        Header="Days remaining" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <TextBlock Grid.Row="2" Text="Buy orders" />
+                            <DataGrid
+                                Grid.Row="3"
+                                ItemsSource="{Binding BuyOrders}"
+                                Style="{StaticResource DataGridSyle}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Location}" Header="Location" />
+
+                                    <DataGridTextColumn
+                                        Binding="{Binding Price, Converter={StaticResource PriceFormater}}"
+                                        ElementStyle="{StaticResource RightAlignedTextColumn}"
+                                        Header="Price" />
+
+                                    <DataGridTextColumn
+                                        Binding="{Binding Volume}"
+                                        ElementStyle="{StaticResource RightAlignedTextColumn}"
+                                        Header="Volume" />
+
+                                    <DataGridTextColumn
+                                        Binding="{Binding EndsIn}"
+                                        ElementStyle="{StaticResource RightAlignedTextColumn}"
+                                        Header="Days remaining" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+                            <Button
+                                Grid.Row="4"
+                                Margin="5"
+                                Padding="4"
+                                HorizontalAlignment="Right"
+                                Command="{Binding RefreshData}"
+                                Content="Refresh" />
+                        </Grid>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Grid>
+    </Grid>
+</Page>
