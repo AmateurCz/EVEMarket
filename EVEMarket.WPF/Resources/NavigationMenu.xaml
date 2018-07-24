@@ -1,0 +1,33 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:vm="clr-namespace:EVEMarket.WPF.ViewModel" xmlns:WPF="clr-namespace:EVEMarket.WPF">
+
+    <system:Double x:Key="NavigationButtonSize">32</system:Double>
+
+    <Style x:Key="NavigationButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Width" Value="{StaticResource NavigationButtonSize}" />
+        <Setter Property="Height" Value="{StaticResource NavigationButtonSize}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Margin" Value="1" />
+    </Style>
+
+    <Style x:Key="ButtonImageStyle" TargetType="{x:Type Image}">
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <ScaleTransform ScaleX="1.2" ScaleY="1.2" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+    </Style>
+
+    <DataTemplate DataType="{x:Type vm:PageViewModel}">
+        <Button
+            Command="{Binding Command}"
+            Style="{StaticResource NavigationButtonStyle}">
+            <Image Source="{Binding Icon}" Style="{StaticResource ButtonImageStyle}" />
+        </Button>
+    </DataTemplate>
+</ResourceDictionary>

@@ -46,5 +46,17 @@ namespace EVEMarket.WPF.Properties {
                 this["StaticDataDBLocation"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\kubatdav\\Downloads\\SDE\\July_Release_2018_Icons.zip")]
+        public string IconFile {
+            get {
+                return ((string)(this["IconFile"]));
+            }
+            set {
+                this["IconFile"] = value;
+            }
+        }
     }
 }

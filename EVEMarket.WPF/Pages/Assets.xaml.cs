@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EVEMarket.WPF
+namespace EVEMarket.WPF.Pages
 {
     /// <summary>
-    /// Interaction logic for AccountDetails.xaml
+    /// Interaction logic for Assets.xaml
     /// </summary>
-    public partial class AccountDetails : Page
+    public partial class Assets : Page
     {
-        public AccountDetails()
+        public Assets()
         {
             InitializeComponent();
         }

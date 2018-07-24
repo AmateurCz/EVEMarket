@@ -92,26 +92,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AccountDetails.xaml.cs">
+    <Compile Include="Pages\AccountDetails.xaml.cs">
       <DependentUpon>AccountDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\NumberFormater.cs" />
     <Compile Include="Data\EveDbConfig.cs" />
     <Compile Include="Data\EveDbContext.cs" />
     <Compile Include="Extensions\EveIconExtension.cs" />
+    <Compile Include="Interfaces\NavigationHandler.cs" />
     <Compile Include="Interfaces\VmWithInitialization.cs" />
-    <Compile Include="MarketDetails.xaml.cs">
+    <Compile Include="Pages\Assets.xaml.cs">
+      <DependentUpon>Assets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MarketDetails.xaml.cs">
       <DependentUpon>MarketDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ConstellationViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MarketViewModel.cs" />
     <Compile Include="ViewModel\MarketGroupViewModel.cs" />
     <Compile Include="ViewModel\MarketOrderViewModel.cs" />
+    <Compile Include="ViewModel\PageViewModel.cs" />
     <Compile Include="ViewModel\RegionViewModel.cs" />
     <Compile Include="ViewModel\SolarSystemViewModel.cs" />
     <Compile Include="ViewModel\TypeViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="AccountDetails.xaml">
+    <Page Include="Pages\AccountDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,11 +133,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MarketDetails.xaml">
+    <Page Include="Pages\Assets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MarketDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\AppTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\NavigationMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -168,7 +182,9 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Commands\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EVE.Esi\EVE.Esi.csproj">
       <Project>{96374B37-5737-491E-AEC1-731C8680682A}</Project>

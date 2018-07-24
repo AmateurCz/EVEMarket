@@ -1,26 +1,36 @@
 ﻿using System;
 using System.Windows;
+using EVEMarket.WPF.Interfaces;
+using GalaSoft.MvvmLight.Ioc;
 
 namespace EVEMarket.WPF
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, NavigationHandler
     {
         public MainWindow()
         {
             InitializeComponent();
+            SimpleIoc.Default.Register<NavigationHandler>(() => this);
         }
 
-        protected override void OnInitialized(EventArgs e)
+        public void NavigateTo(Type target)
         {
-            NavigationFrame.Navigate(new MarketDetails());
+            var page = Activator.CreateInstance(target);
+            this.NavigationFrame.Navigate(page);
+        }
+
+        protected override async void OnInitialized(EventArgs e)
+        {
             base.OnInitialized(e);
-        }
+            this.IsEnabled = false;
 
-        private void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
+            var vm = this.DataContext as VmWithInitialization;
+            await vm.InitializeAsync();
+
+            this.IsEnabled = true;
         }
     }
 }

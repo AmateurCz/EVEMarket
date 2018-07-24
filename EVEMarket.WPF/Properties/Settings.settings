@@ -8,5 +8,8 @@
     <Setting Name="StaticDataDBLocation" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Users\kubatdav\Downloads\SDE\EveStaticData.sqlite</Value>
     </Setting>
+    <Setting Name="IconFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\kubatdav\Downloads\SDE\July_Release_2018_Icons.zip</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

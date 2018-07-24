@@ -44,6 +44,8 @@ namespace EVEMarket.WPF.ViewModel
             set => Set(ref _marketGroups, value);
         }
 
+        public bool Initialized { get; private set; } = false;
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -54,6 +56,9 @@ namespace EVEMarket.WPF.ViewModel
 
         public async Task InitializeAsync()
         {
+            if (Initialized)
+                return;
+
             if (!IsInDesignMode)
             {
                 using (var staticData = new Data.EveDbContext())
@@ -77,6 +82,8 @@ namespace EVEMarket.WPF.ViewModel
                 GenerateMarketTree();
                 SelectedRegion = Regions.First();
             }
+
+            Initialized = true;
         }
 
         private void GenerateMarketTree()

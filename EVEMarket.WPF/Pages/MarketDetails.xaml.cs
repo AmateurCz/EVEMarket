@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using EVEMarket.WPF.Interfaces;
 
-namespace EVEMarket.WPF
+namespace EVEMarket.WPF.Pages
 {
     /// <summary>
     /// Interaction logic for MarketDetails.xaml

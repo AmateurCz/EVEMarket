@@ -42,6 +42,7 @@ namespace EVEMarket.WPF.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MarketViewModel>();
+            SimpleIoc.Default.Register<MainViewModel>();
         }
 
         public MarketViewModel Market
@@ -49,6 +50,14 @@ namespace EVEMarket.WPF.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MarketViewModel>();
+            }
+        }
+
+        public MainViewModel Main
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
 
