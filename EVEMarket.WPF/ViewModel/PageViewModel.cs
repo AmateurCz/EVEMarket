@@ -1,5 +1,4 @@
-﻿using System.Windows.Input;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using GalaSoft.MvvmLight;
 
 namespace EVEMarket.WPF.ViewModel
@@ -7,9 +6,9 @@ namespace EVEMarket.WPF.ViewModel
     public class PageViewModel : ViewModelBase
     {
         private ImageSource _icon;
-        private ICommand _command;
         private string _iconPath;
         private string _name;
+        private object _content;
 
         /// <summary>
         /// TODO icon path and icon property sync
@@ -29,16 +28,16 @@ namespace EVEMarket.WPF.ViewModel
             set => Set(ref _iconPath, value);
         }
 
-        public ICommand Command
-        {
-            get => _command;
-            set => Set(ref _command, value);
-        }
-
         public string Name
         {
             get => _name;
             set => Set(ref _name, value);
+        }
+
+        public object Content
+        {
+            get => _content;
+            set => Set(ref _content, value);
         }
     }
 }

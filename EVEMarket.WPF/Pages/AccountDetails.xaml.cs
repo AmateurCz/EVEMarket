@@ -5,7 +5,7 @@ namespace EVEMarket.WPF.Pages
     /// <summary>
     /// Interaction logic for AccountDetails.xaml
     /// </summary>
-    public partial class AccountDetails : Page
+    public partial class AccountDetails : UserControl
     {
         public AccountDetails()
         {

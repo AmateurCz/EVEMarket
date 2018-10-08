@@ -1,21 +1,25 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using CommonServiceLocator;
-using EVEMarket.WPF.Interfaces;
-using EVEMarket.WPF.Pages;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
 
 namespace EVEMarket.WPF.ViewModel
 {
     public class MainViewModel : ViewModelBase, Interfaces.VmWithInitialization
     {
-        protected NavigationHandler Navigator => ServiceLocator.Current.GetInstance<NavigationHandler>();
+        private PageViewModel _selectedPage;
 
         public ObservableCollection<PageViewModel> Pages { get; } = new ObservableCollection<PageViewModel>();
+
+        public PageViewModel SelectedPage
+        {
+            get => _selectedPage;
+            set => Set(ref _selectedPage, value);
+        }
 
         public MainViewModel()
         {
@@ -26,26 +30,27 @@ namespace EVEMarket.WPF.ViewModel
             Pages.Add(new PageViewModel
             {
                 IconPath = "Icons/UI/WindowIcons/member.png",
-                Name = "User",
-                Command = new RelayCommand(() => Navigator.NavigateTo(typeof(AccountDetails)))
+                Name = "Account",
+                Content = ServiceLocator.Current.GetInstance<AccountViewModel>()
             });
 
             Pages.Add(new PageViewModel
             {
                 IconPath = "Icons/UI/WindowIcons/market.png",
                 Name = "Market",
-                Command = new RelayCommand(() => Navigator.NavigateTo(typeof(MarketDetails)))
+                Content = ServiceLocator.Current.GetInstance<MarketViewModel>()
             });
 
             Pages.Add(new PageViewModel
             {
                 IconPath = "Icons/UI/WindowIcons/assets.png",
                 Name = "Assets",
-                Command = new RelayCommand(() => Navigator.NavigateTo(typeof(Assets)))
+                Content = ServiceLocator.Current.GetInstance<AssetViewModel>()
             });
 
-            FindIconsForPages();
+            SelectedPage = Pages.First();
 
+            FindIconsForPages();
             return Task.CompletedTask;
         }
 

@@ -7,7 +7,7 @@ namespace EVEMarket.WPF.Pages
     /// <summary>
     /// Interaction logic for MarketDetails.xaml
     /// </summary>
-    public partial class MarketDetails : Page
+    public partial class MarketDetails : UserControl
     {
         public MarketDetails()
         {

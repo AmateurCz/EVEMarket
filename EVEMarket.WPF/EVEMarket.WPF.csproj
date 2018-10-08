@@ -99,7 +99,6 @@
     <Compile Include="Data\EveDbConfig.cs" />
     <Compile Include="Data\EveDbContext.cs" />
     <Compile Include="Extensions\EveIconExtension.cs" />
-    <Compile Include="Interfaces\NavigationHandler.cs" />
     <Compile Include="Interfaces\VmWithInitialization.cs" />
     <Compile Include="Pages\Assets.xaml.cs">
       <DependentUpon>Assets.xaml</DependentUpon>
@@ -107,6 +106,8 @@
     <Compile Include="Pages\MarketDetails.xaml.cs">
       <DependentUpon>MarketDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AccountViewModel.cs" />
+    <Compile Include="ViewModel\AssetViewModel.cs" />
     <Compile Include="ViewModel\ConstellationViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MarketViewModel.cs" />

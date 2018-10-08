@@ -42,6 +42,8 @@ namespace EVEMarket.WPF.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MarketViewModel>();
+            SimpleIoc.Default.Register<AssetViewModel>();
+            SimpleIoc.Default.Register<AccountViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
         }
 

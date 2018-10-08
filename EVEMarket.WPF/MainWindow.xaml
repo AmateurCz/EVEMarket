@@ -4,11 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:page="clr-namespace:EVEMarket.WPF.Pages"
+    xmlns:vm="clr-namespace:EVEMarket.WPF.ViewModel"
     Title="MainWindow"
     Width="800"
     Height="600"
-    mc:Ignorable="d"
-    DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+    DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
+    mc:Ignorable="d">
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -18,15 +20,21 @@
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Frame
-            x:Name="NavigationFrame"
+        <ListBox
             Grid.Row="0"
-            Grid.Column="1" />
-        <ItemsControl Grid.Row="0" Grid.Column="0" Margin="4" ItemsSource="{Binding Pages}">
+            Grid.Column="0"
+            Margin="4"
+            ItemContainerStyle="{DynamicResource PageItemStyle}"
+            ItemsSource="{Binding Pages}"
+            SelectedItem="{Binding SelectedPage}">
             <ItemsControl.Resources>
-                <ResourceDictionary  Source="pack://application:,,,/Resources/NavigationMenu.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Resources/NavigationMenu.xaml" />
             </ItemsControl.Resources>
-        </ItemsControl>
+        </ListBox>
+        <Frame
+            Margin="4"
+            Grid.Column="1">
+        </Frame>
         <StatusBar Grid.Row="1" Grid.ColumnSpan="2">
             <StatusBarItem>
                 <TextBlock x:Name="StatusText" />
